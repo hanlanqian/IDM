@@ -13,21 +13,25 @@ class Download_Thread(Thread):
         self.thread_id = str(thread_id)
         self.start_bytes = start_bytes
         self.end_bytes = end_bytes - 1
-        self.result = None
-        print(self.start_bytes, self.end_bytes)
+        self.headers = g.headers.copy()
 
     def run(self):
-        headers = g.headers.copy()
-        headers.update({'Range': 'bytes={}-{}'.format(self.start_bytes, self.end_bytes)})
+        start = time.time()
+        self.headers.update({'Range': 'bytes={}-{}'.format(self.start_bytes, self.end_bytes)})
         print('线程{}开始解析'.format(self.thread_id))
-        r = requests.get(self.url, headers)
-        data = r.content
-        print('线程{}开始写入'.format(self.thread_id))
-        with open('test' + self.thread_id + '.tmp', 'wb') as f:
-            pass
-        with open('test' + self.thread_id + '.tmp', 'ab+') as f:
-            f.write(data)
-        print('线程{}下载完成'.format(self.thread_id))
+        print(self.headers)
+        r = requests.get(self.url, headers=self.headers)
+        if r.status_code == 206:
+            data = r.content
+            self.length = len(data)
+            print('线程{}开始写入'.format(self.thread_id))
+            with open('test' + self.thread_id + '.tmp', 'wb') as f:
+                pass
+            with open('test' + self.thread_id + '.tmp', 'ab+') as f:
+                f.write(data)
+            print('线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start))
+        else:
+            print('返回出错')
 
 
 class MergeThread(Thread):
@@ -53,11 +57,13 @@ def isAlive(threads):
 if __name__ == '__main__':
     threads = []
     threads_num = 4
-    url = 'https://67ecedb6b9ec5e7a581d5a1c8c8aa0b3.dlied1.cdntips.net/dlied1.qq.com/qqweb/PCQQ/PCQQ_EXE/PCQQ2021.exe' \
-          '?mkey=6097eed8716ca3c5&f=0000&cip=113.108.133.48&proto=https&access_type=$header_ApolloNet '
+    url = 'http://upos-sz-mirrorcos.bilivideo.com/upgcxcode/36/19/341901936/341901936_nb2-1-80.flv?e' \
+          '=ig8euxZM2rNcNbuHhbUVhoManWNBhwdEto8g5X10ugNcXBlqNxHxNEVE5XREto8KqJZHUa6m5J0SqE85tZvEuENvNC8xNEVE9EKE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IMvXBvEuENvNCImNEVEua6m2jIxux0CkF6s2JZv5x0DQJZY2F8SkXKE9IB5QK==&deadline=1621771342&gen=playurl&nbs=1&oi=989425742&os=cosbv&platform=pc&trid=6a1d97e3d669492ea8976607d5a42fef&uipk=5&upsig=7fad4c874a7c0215dc54e81ac966a089&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0 '
     final_path = url.split('?')[0].split('/')[-1]
+    start = time.time()
     head_info = requests.head(url, headers=g.headers)
     file_size = int(head_info.headers['Content-Length'])
+    print(file_size)
     g.sub_file_size = g.fileDivision(file_size, threads_num)
     for i in range(threads_num):
         thread = Download_Thread(url, i, g.sub_file_size[i], g.sub_file_size[i + 1])
@@ -69,6 +75,8 @@ if __name__ == '__main__':
 
     with open(final_path, 'wb') as final_file:
         for i in range(threads_num):
+            print(i)
             with open('test' + str(i) + '.tmp', 'rb+') as f_tmp:
                 final_file.write(f_tmp.read())
             os.remove('test' + str(i) + '.tmp')
+    print(time.time() - start)
