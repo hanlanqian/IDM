@@ -180,7 +180,6 @@ class Bilibili(VideoExtractor):
         else:
             self.download_playlist_by_url(self.url, **kwargs)
             return
-
         # regular av video
         if sort == 'video':
             initial_state_text = match1(html_content, r'__INITIAL_STATE__=(.*?);\(function\(\)')  # FIXME
@@ -290,7 +289,7 @@ class Bilibili(VideoExtractor):
                                                             'src': [[baseurl]], 'size': size}
 
             # get danmaku
-            self.danmaku = get_content('http://comment.bilibili.com/%s.xml' % cid)
+            # self.danmaku = get_content('http://comment.bilibili.com/%s.xml' % cid)
 
         # bangumi
         elif sort == 'bangumi':

@@ -1814,6 +1814,9 @@ def any_download_playlist(url, **kwargs):
 def main(**kwargs):
     script_main(any_download, any_download_playlist, **kwargs)
     global streams
-    return streams
+    real_urls = []
+    for i in streams:
+        real_urls.append(streams[i])
+    return real_urls
 
 global streams
