@@ -10,7 +10,7 @@ sub_file_size = []
 
 def fileDivision(filesize, threads_num):
     _sub_file_size = []
-    unit = filesize / threads_num
+    unit = filesize // threads_num
     for i in range(threads_num):
         _sub_file_size.append(i * unit)
     _sub_file_size.append(filesize)
