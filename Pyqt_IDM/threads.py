@@ -22,12 +22,15 @@ class Download_Thread(Thread):
         self.headers.update({'Range': 'bytes={}-{}'.format(self.start_bytes, self.end_bytes)})
         print('线程{}开始解析'.format(self.thread_id))
         r = requests.get(self.url, headers=self.headers)
+        data = r.content
         if r.status_code == 206:
             print('线程{}开始写入'.format(self.thread_id))
             with open(self.filepath + self.filename + self.thread_id + '.tmp', 'wb') as f:
                 pass
             with open(self.filepath + self.filename + self.thread_id + '.tmp', 'ab+') as f:
-                f.write(r.content)
+                # time_unit = 0
+                # while True:
+                f.write(data)
             print('线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start))
         else:
             print('get请求出错')
@@ -70,7 +73,6 @@ class MultiThreadDownload(Thread):
 
         with open(self.file_path + self.filename, 'wb') as final_file:
             for i in range(threads_num):
-                print(i)
                 with open(self.file_path + self.filename + str(i) + '.tmp', 'rb+') as f_tmp:
                     final_file.write(f_tmp.read())
                 os.remove(self.file_path + self.filename + str(i) + '.tmp')
@@ -85,10 +87,8 @@ def isAlive(threads):
 
 
 if __name__ == '__main__':
-    threads_num = 4
-    # url = 'http://upos-sz-mirrorcos.bilivideo.com/upgcxcode/36/19/341901936/341901936_nb2-1-80.flv?e' \
-    #       '=ig8euxZM2rNcNbuHhbUVhoManWNBhwdEto8g5X10ugNcXBlqNxHxNEVE5XREto8KqJZHUa6m5J0SqE85tZvEuENvNC8xNEVE9EKE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IMvXBvEuENvNCImNEVEua6m2jIxux0CkF6s2JZv5x0DQJZY2F8SkXKE9IB5QK==&deadline=1621771342&gen=playurl&nbs=1&oi=989425742&os=cosbv&platform=pc&trid=6a1d97e3d669492ea8976607d5a42fef&uipk=5&upsig=7fad4c874a7c0215dc54e81ac966a089&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0 '
-    url = 'https://67ecedb6b9ec5e7a581d5a1c8c8aa0b3.dlied1.cdntips.net/dlied1.qq.com/qqweb/PCQQ/PCQQ_EXE/PCQQ2021.exe'
+    threads_num = 6
+    url = 'http://upos-sz-mirrorkodo.bilivideo.com/upgcxcode/72/95/325839572/325839572-1-80.flv?e=ig8euxZM2rNcNbUjhbUVhoMB7bNBhwdEto8g5X10ugNcXBlqNxHxNEVE5XREto8KqJZHUa6m5J0SqE85tZvEuENvNC8xNEVE9EKE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IMvXBvEuENvNCImNEVEua6m2jIxux0CkF6s2JZv5x0DQJZY2F8SkXKE9IB5QK==&deadline=1621781373&gen=playurl&nbs=1&oi=989425742&os=kodobv&platform=pc&trid=d03db4416f334943ab950e989bde4af8&uipk=5&upsig=eb6dc39ce50a52aebe521c4e06638f3b&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0'
     mutil_download = MultiThreadDownload(url, threads_num)
     mutil_download.start()
     # mutil_download.join()

@@ -4,7 +4,7 @@ import time
 import sys
 import you_get
 
-BVid = 'BV1Q64y1d7xo'
+BVid = 'BV1TB4y1A7nL'
 sys.argv = ['you-get', 'https://www.bilibili.com/video/{}'.format(BVid)]
 start = time.time()
 video_urls = you_get.main()
