@@ -3,6 +3,8 @@ import time
 import requests
 import globals_varible as g
 import os
+import you_get
+import sys
 from PyQt5.QtCore import QThread
 
 thread_lock = Lock()
@@ -24,14 +26,19 @@ class Download_Thread(Thread):
         start = time.time()
         self.headers.update({'Range': 'bytes={}-{}'.format(self.start_bytes, self.end_bytes)})
         print('线程{}开始解析'.format(self.thread_id))
-        r = session.get(self.url, headers=self.headers)
-        data = r.content
-        if r.status_code == 206:
+        r = session.get(self.url, headers=self.headers, stream=True)
+        print('线程{}解析用时{}'.format(self.thread_id, time.time() - start))
+        if r.status_code == 206 or r.status_code == 200:
             print('线程{}开始写入'.format(self.thread_id))
             with open(self.filepath + self.filename + self.thread_id + '.tmp', 'wb') as f:
                 pass
             with open(self.filepath + self.filename + self.thread_id + '.tmp', 'ab+') as f:
-                f.write(data)
+                for chunk in r.iter_content(chunk_size=g.chunk_size):
+                    f.write(chunk)
+                    g.sub_file_download[self.thread_id] += g.chunk_size
+                    percent = g.chunk_size/(g.sub_file_size[int(self.thread_id)+1]-g.sub_file_size[int(self.thread_id)])
+                    g.sub_file_download_percent['线程'+self.thread_id] += percent*100
+                    g.total_download += g.chunk_size
             print('线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start))
         else:
             print('get请求出错')
@@ -46,10 +53,10 @@ class MergeThread(Thread):
 
     def run(self):
         thread_lock.acquire()  # 加个同步锁就好了
-        with open(self.filepath+self.filename, 'ab+') as final_file:
+        with open(self.filepath + self.filename, 'ab+') as final_file:
             with open(self.filepath + self.filename + self.thread_id + '.tmp', 'rb+') as file_tmp:
                 final_file.write(file_tmp.read())
-            os.remove(self.file_path + self.filename + self.thread_id + '.tmp')
+            os.remove(self.filepath + self.filename + self.thread_id + '.tmp')
         thread_lock.release()
 
 
@@ -61,34 +68,31 @@ class MultiThreadDownload(Thread):
         self.file_path = file_path
         self.threads = []
         self.filename = url.split('?')[0].split('/')[-1]
-        self.file_size = None
-        self.sub_file_size = []
 
     def run(self):
         print('开始解析连接')
         start_time = time.time()
         head_info = session.head(self.url, headers=g.headers)
-        self.file_size = int(head_info.headers['Content-Length'])
-        self.sub_file_size = g.fileDivision(self.file_size, self.threads_num)
-        print('该文件大小为{}kb'.format(self.file_size/1024))
+        g.file_size = int(head_info.headers['Content-Length'])
+        g.sub_file_size = g.fileDivision(g.file_size, self.threads_num)
+        print('该文件大小为{}kb, 共用时{}s'.format(g.file_size / 1024, time.time() - start_time))
+        with open(self.file_path + self.filename, 'wb') as f:
+            pass
         for i in range(threads_num):
-            thread = Download_Thread(url, self.file_path, self.filename, i, self.sub_file_size[i],
-                                     self.sub_file_size[i + 1])
+            g.sub_file_download.update({str(i): 0})
+            g.sub_file_download_percent.update({'线程'+str(i): 0})
+            thread = Download_Thread(url, self.file_path, self.filename, i, g.sub_file_size[i],
+                                     g.sub_file_size[i + 1])
             self.threads.append(thread)
         for i in range(threads_num):
             self.threads[i].start()
+        Thread(target=show).start()
         while isAlive(self.threads):
             time.sleep(0.1)
-
-        # with open(self.file_path + self.filename, 'wb') as final_file:
-        #     for i in range(threads_num):
-        #         with open(self.file_path + self.filename + str(i) + '.tmp', 'rb+') as f_tmp:
-        #             final_file.write(f_tmp.read())
-        #         os.remove(self.file_path + self.filename + str(i) + '.tmp')
         for i in range(threads_num):
             MergeThread(self.file_path, self.filename, i).start()
-
-        print(time.time() - start_time)
+        total_time = time.time() - start_time
+        print(f'一共耗时{total_time:.2f}s, 平均下载速度为{g.file_size/1024/1024/total_time:.4f}MB/s')
 
 
 def isAlive(threads):
@@ -98,10 +102,27 @@ def isAlive(threads):
     return False
 
 
+def show():
+    while True:
+        time.sleep(1)
+        if g.total_download >= g.file_size:
+            break
+        # for thread, percent in g.sub_file_download_percent.items():
+        #     print(thread + ':' + f'{percent:.4f}', end='\t')
+        print(g.sub_file_download_percent)
+
+
 if __name__ == '__main__':
-    threads_num = 6
-    # url = 'http://upos-sz-mirrorkodo.bilivideo.com/upgcxcode/72/95/325839572/325839572-1-80.flv?e=ig8euxZM2rNcNbUjhbUVhoMB7bNBhwdEto8g5X10ugNcXBlqNxHxNEVE5XREto8KqJZHUa6m5J0SqE85tZvEuENvNC8xNEVE9EKE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IMvXBvEuENvNCImNEVEua6m2jIxux0CkF6s2JZv5x0DQJZY2F8SkXKE9IB5QK==&deadline=1621781373&gen=playurl&nbs=1&oi=989425742&os=kodobv&platform=pc&trid=d03db4416f334943ab950e989bde4af8&uipk=5&upsig=eb6dc39ce50a52aebe521c4e06638f3b&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0'
-    url = 'http://upos-sz-mirrorkodo.bilivideo.com/upgcxcode/72/95/325839572/325839572-1-80.flv?e=ig8euxZM2rNcNbUjhbUVhoMB7bNBhwdEto8g5X10ugNcXBlqNxHxNEVE5XREto8KqJZHUa6m5J0SqE85tZvEuENvNC8xNEVE9EKE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IMvXBvEuENvNCImNEVEua6m2jIxux0CkF6s2JZv5x0DQJZY2F8SkXKE9IB5QK==&deadline=1621798122&gen=playurl&nbs=1&oi=989425742&os=kodobv&platform=pc&trid=3f1b653d15114c58a19af2b40f30194d&uipk=5&upsig=0fb06d3628e11f7bc35fd4590f7e61d4&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0'
-    mutil_download = MultiThreadDownload(url, threads_num)
-    mutil_download.start()
-    # mutil_download.join()
+    Bilibili = False
+    if Bilibili:
+        # 输入视频bv号
+        BVid = 'BV1Fr4y1N7ah'
+        sys.argv = ['you-get', 'https://www.bilibili.com/video/{}'.format(BVid)]
+        start = time.time()
+        # 调取自定义更改后的you_get库获取对应视频链接
+        url = you_get.main()[0]
+    else:
+        url = 'https://dldir1.qq.com/music/clntupate/QQMusicSetup.exe'
+    threads_num = 4
+    mainthread = MultiThreadDownload(url, threads_num)
+    mainthread.start()

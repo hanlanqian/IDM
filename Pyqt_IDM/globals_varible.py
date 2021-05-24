@@ -3,9 +3,14 @@ headers = {
     'Referer': 'https://space.bilibili.com/4899781/',
     'Origin': 'http://www.bilibili.com',
     'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+    'Accept': '*/*',
 }
 sub_file_size = []
+sub_file_download = {}
+sub_file_download_percent = {}
+total_download = 0
+file_size = 0
+chunk_size = 1024 * 50
 
 
 def fileDivision(filesize, threads_num):

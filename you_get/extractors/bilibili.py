@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import time
 
 from ..common import *
 from ..extractor import VideoExtractor
@@ -137,6 +138,7 @@ class Bilibili(VideoExtractor):
 
     def prepare(self, **kwargs):
         self.stream_qualities = {s['quality']: s for s in self.stream_types}
+        start = time.time()
 
         try:
             html_content = get_content(self.url, headers=self.bilibili_headers(referer=self.url))
@@ -144,7 +146,6 @@ class Bilibili(VideoExtractor):
             html_content = ''  # live always returns 400 (why?)
         #self.title = match1(html_content,
         #                    r'<h1 title="([^"]+)"')
-
         # redirect: watchlater
         if re.match(r'https?://(www\.)?bilibili\.com/watchlater/#/(av(\d+)|BV(\S+)/?)', self.url):
             avid = match1(self.url, r'/(av\d+)') or match1(self.url, r'/(BV\w+)')
@@ -181,6 +182,7 @@ class Bilibili(VideoExtractor):
             self.download_playlist_by_url(self.url, **kwargs)
             return
         # regular av video
+
         if sort == 'video':
             initial_state_text = match1(html_content, r'__INITIAL_STATE__=(.*?);\(function\(\)')  # FIXME
             initial_state = json.loads(initial_state_text)
@@ -246,6 +248,9 @@ class Bilibili(VideoExtractor):
                 return
 
             for playinfo in playinfos:
+                # if playinfo['data']['durl']['url']:
+                #     self.real_urls = playinfo['data']['durl']['url']
+                #     return 0
                 quality = playinfo['data']['quality']
                 format_id = self.stream_qualities[quality]['id']
                 container = self.stream_qualities[quality]['container'].lower()
@@ -257,9 +262,12 @@ class Bilibili(VideoExtractor):
                         src.append(durl['url'])
                         size += durl['size']
                     self.streams[format_id] = {'container': container, 'quality': desc, 'size': size, 'src': src}
+                    self.real_urls = src
+                    break
 
                 # DASH formats
                 if 'dash' in playinfo['data']:
+                    pass
                     audio_size_cache = {}
                     for video in playinfo['data']['dash']['video']:
                         # prefer the latter codecs!

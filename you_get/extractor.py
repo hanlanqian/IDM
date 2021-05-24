@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import time
 
 from .common import match1, maybe_print, download_urls, get_filename, parse_host, set_proxy, unset_proxy, get_content, dry_run, player
 from .common import print_more_compatible as print
@@ -35,7 +36,7 @@ class VideoExtractor():
         self.referer = None
         self.danmaku = None
         self.lyrics = None
-        self.real_urls = None
+        self.real_urls = []
 
         if args:
             self.url = args[0]
@@ -47,7 +48,7 @@ class VideoExtractor():
         if 'extractor_proxy' in kwargs and kwargs['extractor_proxy']:
             set_proxy(parse_host(kwargs['extractor_proxy']))
         self.prepare(**kwargs)
-        return self.streams
+        return self.real_urls
 
         if self.out:
             return
