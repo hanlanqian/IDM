@@ -59,6 +59,7 @@ class MyMain(QMainWindow):
             g.Type = 'Bilibili'
         g.threads_num = self.ui.horizontalSlider.value()
         self.multidownload.start()
+        QMessageBox.show("多线程下载已启动")
 
     def stop_download(self):
         self.multidownload.stop()
