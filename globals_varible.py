@@ -10,13 +10,13 @@ sub_file_download = {}
 sub_file_download_percent = {}
 total_download = 0
 file_size = 0
-chunk_size = 1024 * 50
+url = None
+filepath = None
+filename = None
+threads_num = None
+chunk_size = 1024 * 100
+Type = None
 
-
-def fileDivision(filesize, threads_num):
-    _sub_file_size = []
-    unit = filesize // threads_num
-    for i in range(threads_num):
-        _sub_file_size.append(i * unit)
-    _sub_file_size.append(filesize)
-    return _sub_file_size
+# Bilibili
+BVid = None
+real_video_url = None
