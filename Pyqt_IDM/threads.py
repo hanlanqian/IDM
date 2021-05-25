@@ -26,7 +26,8 @@ def fileDivision(filesize, threads_num):
 
 thread_lock = Lock()
 session = requests.session()
-Mthreads = []
+files = []
+
 
 class Download_Thread(QThread):
     download_info_signal = pyqtSignal(str, float)
@@ -47,22 +48,20 @@ class Download_Thread(QThread):
         self.download_info_signal.emit('线程{}解析用时{}'.format(self.thread_id, time.time() - start), 0.0)
         if r.status_code == 206 or r.status_code == 200:
             self.download_info_signal.emit('线程{}开始写入'.format(self.thread_id), 0.0)
-            with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp', 'wb') as f:
-                pass
+            # with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp', 'wb') as f:
+            #     pass
             with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp', 'ab+') as f:
+                files.append(f)
                 for chunk in r.iter_content(chunk_size=g.globals_variable.chunk_size):
                     f.write(chunk)
-                    # g.globals_variable.sub_file_download[self.thread_id] += g.globals_variable.chunk_size
                     percent = g.globals_variable.chunk_size / (self.end_bytes - self.start_bytes)
                     g.globals_variable.sub_file_download_percent['线程' + self.thread_id] += percent * 100
                     g.globals_variable.total_download += g.globals_variable.chunk_size
                     self.download_info_signal.emit(str(g.globals_variable.sub_file_download_percent),
-                                                       g.globals_variable.total_download)
+                                                   g.globals_variable.total_download)
             self.download_info_signal.emit('线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start), 0.0)
         else:
             self.download_info_signal.emit('get请求出错', 0.0)
-
-
 
 
 class MergeThread(Thread):
@@ -97,7 +96,6 @@ class MultiThreadDownload(QThread):
                                           g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
             self.download_info_signal.emit('已获得真实视频链接，准备开始下载', 0.0)
         self.download_info_signal.emit('开始解析连接', 0.0)
-        # print('开始解析连接')
         start_time = time.time()
         head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
         g.globals_variable.file_size = int(head_info.headers['Content-Length'])
@@ -109,9 +107,9 @@ class MultiThreadDownload(QThread):
         self.download_info_signal.emit(
             '该文件大小为{}kb, 共用时{}s'.format(g.globals_variable.file_size / 1024, time.time() - start_time), 0.0)
         with open(g.globals_variable.filepath + g.globals_variable.filename, 'wb') as f:
+            files.append(f)
             pass
         for i in range(g.globals_variable.threads_num):
-            g.globals_variable.sub_file_download.update({str(i): 0})
             g.globals_variable.sub_file_download_percent.update({'线程' + str(i): 0})
             thread = Download_Thread(i, sub_file_size[i], sub_file_size[i + 1])
             thread.download_info_signal.connect(self.show_download_info)
@@ -119,15 +117,19 @@ class MultiThreadDownload(QThread):
             self.threads.append(thread)
         while isAlive(self.threads) and self.threads[-1].StopFlag == False:
             time.sleep(0.1)
-        for i in range(g.threads_num):
+        for i in range(g.globals_variable.threads_num):
             MergeThread(i).start()
         total_time = time.time() - start_time
         self.download_info_signal.emit(
             f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s', 0.0)
 
     def stop(self):
+        # 暂停下载后会关闭已打开文件并删除已经下载的文件
+        for file in files:
+            file.close()
         for thread in self.threads:
             thread.terminate()
+        os.remove(g.globals_variable.filepath + g.globals_variable.filename)
+        for i in range(g.globals_variable.threads_num):
+            os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
         self.terminate()
-
-

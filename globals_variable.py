@@ -8,7 +8,6 @@ class GlobalsVariable:
             'Accept': '*/*',
         }
         self.sub_file_size = []
-        self.sub_file_download = {}
         self.sub_file_download_percent = {}
         self.total_download = 0
         self.file_size = 0

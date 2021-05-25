@@ -1,7 +1,5 @@
 import sys
-import threading
 import os
-import you_get
 import globals_variable as g
 from Pyqt_IDM.threads import MultiThreadDownload
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
@@ -70,7 +68,6 @@ class MyMain(QMainWindow):
         else:
             self.multidownload.stop()
             self.ui.Download_info.appendPlainText('成功结束下载！')
-        # 停止下载后删除已下载文件
 
 
 if __name__ == '__main__':
