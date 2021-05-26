@@ -63,7 +63,7 @@ class MyMain(QMainWindow):
         dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
         if dir_path:
             self.ui.lineEdit.setText(dir_path)
-            with open('route/route.txt', 'w') as f:
+            with open('route.txt', 'w') as f:
                 f.write(dir_path)
             QMessageBox.information(self, '提示', '默认保存位置已写入route文件')
 
