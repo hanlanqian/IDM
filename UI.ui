@@ -50,7 +50,7 @@
        <property name="font">
         <font>
          <family>微软雅黑</family>
-         <pointsize>-1</pointsize>
+         
         </font>
        </property>
        <property name="cursor">
@@ -700,7 +700,7 @@ QComboBox QAbstractItemView {
                 <property name="font">
                  <font>
                   <family>微软雅黑</family>
-                  <pointsize>-1</pointsize>
+                  
                  </font>
                 </property>
                 <property name="autoFillBackground">
@@ -1038,7 +1038,7 @@ QSlider::add-page:horizontal {
               <property name="font">
                <font>
                 <family>Times New Roman</family>
-                <pointsize>-1</pointsize>
+                
                </font>
               </property>
               <property name="styleSheet">
@@ -1091,7 +1091,7 @@ font-family:&quot;Times New Roman&quot;;
          <property name="font">
           <font>
            <family>微软雅黑</family>
-           <pointsize>-1</pointsize>
+           
           </font>
          </property>
          <property name="styleSheet">
@@ -1136,7 +1136,7 @@ background:rgb(90, 171, 180)
          <property name="font">
           <font>
            <family>微软雅黑</family>
-           <pointsize>-1</pointsize>
+           
           </font>
          </property>
          <property name="styleSheet">
@@ -1187,7 +1187,7 @@ background:rgb(90, 171, 180)
          <property name="font">
           <font>
            <family>微软雅黑</family>
-           <pointsize>-1</pointsize>
+           
           </font>
          </property>
          <property name="styleSheet">

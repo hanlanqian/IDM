@@ -42,7 +42,6 @@ class Ui_MainWindow(object):
         self.tabWidget.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
-        font.setPointSize(-1)
         self.tabWidget.setFont(font)
         self.tabWidget.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.tabWidget.setMouseTracking(False)
@@ -379,7 +378,6 @@ class Ui_MainWindow(object):
         self.chooseLocation.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
-        font.setPointSize(-1)
         self.chooseLocation.setFont(font)
         self.chooseLocation.setAutoFillBackground(False)
         self.chooseLocation.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
@@ -549,7 +547,6 @@ class Ui_MainWindow(object):
         self.MainprogressBar.setMinimumSize(QtCore.QSize(0, 29))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
-        font.setPointSize(-1)
         self.MainprogressBar.setFont(font)
         self.MainprogressBar.setStyleSheet("QProgressBar::chunk {background-color: #05B8CC;   width: 3px;}\n"
 "QProgressBar {   border: 2px solid grey;   border-radius: 8px;   text-align: center;\n"
@@ -581,7 +578,6 @@ class Ui_MainWindow(object):
         self.pause_button.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
-        font.setPointSize(-1)
         self.pause_button.setFont(font)
         self.pause_button.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
@@ -605,7 +601,6 @@ class Ui_MainWindow(object):
         self.stopButton.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
-        font.setPointSize(-1)
         self.stopButton.setFont(font)
         self.stopButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
@@ -630,7 +625,6 @@ class Ui_MainWindow(object):
         self.startButton.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
-        font.setPointSize(-1)
         self.startButton.setFont(font)
         self.startButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
