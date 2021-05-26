@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>914</width>
-    <height>823</height>
+    <width>1097</width>
+    <height>819</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,7 +31,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>891</width>
+      <width>1081</width>
       <height>801</height>
      </rect>
     </property>
@@ -90,13 +90,13 @@
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>861</width>
+           <width>1051</width>
            <height>751</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,0,0,0">
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="3,1,1,8">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,1,1">
+           <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1,1">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,9">
               <item>
@@ -290,7 +290,7 @@
                </layout>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit">
+               <widget class="QLineEdit" name="filepathEdit">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>5</horstretch>
@@ -492,7 +492,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,2,1,2">
+           <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,1,1,1">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -531,6 +531,32 @@
               </property>
               <property name="text">
                <string>开始下载</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pause_button">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>暂停下载</string>
               </property>
              </widget>
             </item>
@@ -725,7 +751,7 @@
           <string>文件下载目录：</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="lineEdit">
          <property name="geometry">
           <rect>
            <x>210</x>
@@ -737,11 +763,11 @@
          <property name="font">
           <font>
            <family>宋体</family>
-           <pointsize>10</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>C:/</string>
+          <string/>
          </property>
         </widget>
         <widget class="QPushButton" name="pushButton">

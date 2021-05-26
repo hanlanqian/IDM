@@ -15,21 +15,22 @@ class MyMain(QMainWindow):
         self.ui.startButton.clicked.connect(self.start_download)
         self.ui.stopButton.clicked.connect(self.stop_download)
         self.ui.pushButton.clicked.connect(self.setting)
+        with open('route/route.txt') as f:
+            self.ui.lineEdit.setText(f.read())
         self.multidownload = MultiThreadDownload(self.show_download_info)
         self.multidownload.download_info_signal.connect(self.show_download_info)
 
     def choose(self):
         if self.ui.checkBox.isChecked():
-            if not os.path.exists('route.txt'):
+            if not os.path.exists('route/route.txt'):
                 QMessageBox.information(self, '警告', '您未曾选择过默认路径\n请前往设置界面设置路径\n或者取消选择默认路径下载')
             else:
-                f = open('route.txt', 'r')
-                dir_path = f.read()
-                f.close()
-                self.ui.lineEdit_2.setText(dir_path + '/')
+                with open('route/route.txt', 'r') as f:
+                    dir_path = f.read()
+                self.ui.filepathEdit.setText(dir_path + '/')
         else:
             dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
-            self.ui.lineEdit.setText(dir_path + '/')
+            self.ui.filepathEdit.setText(dir_path + '/')
 
     def show_download_info(self, info, value):
         if value < 0.0:
@@ -43,15 +44,17 @@ class MyMain(QMainWindow):
 
     def setting(self):
         dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
-        self.ui.lineEdit_2.setText(dir_path)
-        with open('route/route.txt', 'w') as f:
-            f.write(dir_path)
+        if dir_path:
+            self.ui.lineEdit.setText(dir_path)
+            with open('route/route.txt', 'w') as f:
+                f.write(dir_path)
+            QMessageBox.information(self, '提示', '默认保存位置已写入route文件')
 
     def start_download(self):
         g.globals_variable.__init__()
         self.ui.Download_info.setPlainText("")
         self.ui.MainprogressBar.setValue(0)
-        g.globals_variable.filepath = self.ui.lineEdit.text()
+        g.globals_variable.filepath = self.ui.filepathEdit.text()
         if self.ui.DownloadType.currentText() == 'URL':
             g.globals_variable.url = self.ui.URLlineEdit.text()
             g.globals_variable.filename = g.globals_variable.url.split('?')[0].split('/')[-1]
@@ -61,6 +64,10 @@ class MyMain(QMainWindow):
             g.globals_variable.Type = 'Bilibili'
         g.globals_variable.threads_num = self.ui.horizontalSlider.value()
         self.multidownload.start()
+
+    def pause_download(self):
+
+        self.ui.pause_button.setText('继续下载')
 
     def stop_download(self):
         if not self.multidownload.isRunning():

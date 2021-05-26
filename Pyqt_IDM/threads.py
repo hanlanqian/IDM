@@ -7,7 +7,6 @@ import globals_variable as g
 import os
 
 
-
 def isAlive(threads):
     for thread in threads:
         if thread.isRunning():
@@ -38,6 +37,7 @@ class Download_Thread(QThread):
         self.start_bytes = start_bytes
         self.end_bytes = end_bytes - 1
         self.headers = g.globals_variable.headers.copy()
+        self.PauseFlag = False
         self.StopFlag = False
 
     def run(self):
@@ -48,11 +48,11 @@ class Download_Thread(QThread):
         self.download_info_signal.emit('线程{}解析用时{}'.format(self.thread_id, time.time() - start), 0.0)
         if r.status_code == 206 or r.status_code == 200:
             self.download_info_signal.emit('线程{}开始写入'.format(self.thread_id), 0.0)
-            # with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp', 'wb') as f:
-            #     pass
             with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp', 'ab+') as f:
                 files.append(f)
                 for chunk in r.iter_content(chunk_size=g.globals_variable.chunk_size):
+                    while self.PauseFlag:
+                        time.sleep(0.1)
                     f.write(chunk)
                     percent = g.globals_variable.chunk_size / (self.end_bytes - self.start_bytes)
                     g.globals_variable.sub_file_download_percent['线程' + self.thread_id] += percent * 100
@@ -94,7 +94,8 @@ class MultiThreadDownload(QThread):
             site.url = 'https://www.bilibili.com/video/' + g.globals_variable.BVid
             site.prepare()
             g.globals_variable.url = site.real_urls[0]
-            g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + '.'+g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
+            g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + '.' + \
+                                          g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
             self.download_info_signal.emit('已获得真实视频链接，准备开始下载', 0.0)
         self.download_info_signal.emit('开始解析连接', 0.0)
         start_time = time.time()
@@ -125,14 +126,19 @@ class MultiThreadDownload(QThread):
         self.download_info_signal.emit(
             f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s', 0.0)
 
+    def pause(self):
+
+
+
+
     def stop(self):
         # 暂停下载后会关闭已打开文件并删除已经下载的文件
         for file in files:
             file.close()
         for thread in self.threads:
             thread.terminate()
+        os.remove(g.globals_variable.filepath + g.globals_variable.filename)
         if self.Flag:
-            os.remove(g.globals_variable.filepath + g.globals_variable.filename)
-        for i in range(g.globals_variable.threads_num):
-            os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
+            for i in range(g.globals_variable.threads_num):
+                os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
         self.terminate()
