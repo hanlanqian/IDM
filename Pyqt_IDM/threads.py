@@ -60,10 +60,6 @@ class Download_Thread(QThread):
                     self.download_info_signal.emit({'sub_downloaded': g.globals_variable.sub_file_download_percent,
                                                     'downloaded': g.globals_variable.total_download})
             self.download_info_signal.emit({'info': '线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start)})
-        else:
-            self.download_info_signal.emit({'info': 'get请求出错',
-                                            'value': -1}
-                                           )
 
 
 class MergeThread(Thread):
@@ -73,11 +69,12 @@ class MergeThread(Thread):
 
     def run(self):
         thread_lock.acquire()
-        with open(g.globals_variable.filepath + g.globals_variable.filename, 'ab+') as final_file:
-            with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp',
-                      'rb+') as file_tmp:
-                final_file.write(file_tmp.read())
-            os.remove(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp')
+        if os.path.exists(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp'):
+            with open(g.globals_variable.filepath + g.globals_variable.filename, 'ab+') as final_file:
+                with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp',
+                          'rb+') as file_tmp:
+                    final_file.write(file_tmp.read())
+                os.remove(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp')
         thread_lock.release()
 
 
@@ -108,8 +105,11 @@ class MultiThreadDownload(QThread):
         start_time = time.time()
         head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
         g.globals_variable.file_size = int(head_info.headers['Content-Length'])
+        with open(g.globals_variable.filepath + g.globals_variable.filename, 'wb') as f:
+            files.append(f)
+            pass
         if g.globals_variable.Type == 'Bilibili' and g.globals_variable.file_size < 1024:
-            self.download_info_signal.emit({'info': '获取真实链接失败，即将退出下载！',
+            self.download_info_signal.emit({'info': '视频链接失效，即将退出下载！',
                                             })
             self.Flag = False
             self.stop()
@@ -120,9 +120,6 @@ class MultiThreadDownload(QThread):
         self.download_info_signal.emit(
             {'info': '该文件大小为{}kb, 共用时{}s'.format(g.globals_variable.file_size / 1024, time.time() - start_time),
              })
-        with open(g.globals_variable.filepath + g.globals_variable.filename, 'wb') as f:
-            files.append(f)
-            pass
         for i in range(g.globals_variable.threads_num):
             g.globals_variable.sub_file_download_percent.update({'线程' + str(i): 0})
             thread = Download_Thread(i, sub_file_size[i], sub_file_size[i + 1])
@@ -153,4 +150,4 @@ class MultiThreadDownload(QThread):
         if self.Flag:
             for i in range(g.globals_variable.threads_num):
                 os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
-        self.terminate()
+        # self.terminate()

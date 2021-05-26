@@ -19,10 +19,14 @@ class MyMain(QMainWindow):
         self.ui.pause_button.clicked.connect(self.pause_download)
         self.ui.stopButton.clicked.connect(self.stop_download)
         self.ui.pushButton.clicked.connect(self.setting)
-        with open('route/route.txt') as f:
-            self.ui.lineEdit.setText(f.read())
         self.multidownload = MultiThreadDownload(self.show_download_info)
         self.multidownload.download_info_signal.connect(self.show_download_info)
+        if os.path.exists('route.txt'):
+            with open('route.txt') as f:
+                self.ui.lineEdit.setText(f.read())
+        else:
+            with open('route.txt', 'x') as f:
+                pass
 
     def choose(self):
         if self.ui.checkBox.isChecked():
