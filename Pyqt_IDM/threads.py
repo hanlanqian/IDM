@@ -1,11 +1,11 @@
 from threading import Thread, Lock
 from PyQt5.QtCore import QThread, pyqtSignal
+from you_get.extractors.bilibili import site
 import time
 import requests
 import globals_variable as g
 import os
-import you_get
-import sys
+
 
 
 def isAlive(threads):
@@ -90,10 +90,10 @@ class MultiThreadDownload(QThread):
     def run(self):
         if g.globals_variable.Type == 'Bilibili':
             self.download_info_signal.emit('根据BV号下载视频：\n正在解析视频链接', 0.0)
-            sys.argv = ['you-get', 'https://www.bilibili.com/video/' + g.globals_variable.BVid]
-            g.globals_variable.url = you_get.main()[0]
-            g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + \
-                                          g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
+            site.url = 'https://www.bilibili.com/video/' + g.globals_variable.BVid
+            site.prepare()
+            g.globals_variable.url = site.real_urls[0]
+            g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + '.'+g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
             self.download_info_signal.emit('已获得真实视频链接，准备开始下载', 0.0)
         self.download_info_signal.emit('开始解析连接', 0.0)
         start_time = time.time()

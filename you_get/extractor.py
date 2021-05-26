@@ -48,7 +48,6 @@ class VideoExtractor():
         if 'extractor_proxy' in kwargs and kwargs['extractor_proxy']:
             set_proxy(parse_host(kwargs['extractor_proxy']))
         self.prepare(**kwargs)
-        return self.real_urls
 
         if self.out:
             return
