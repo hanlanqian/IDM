@@ -709,7 +709,6 @@ QComboBox QAbstractItemView {
                 <property name="styleSheet">
                  <string notr="true">QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;
 background:rgb(90, 191, 200);
-box-shadow: 10px 10px 5px #888888;
 
 }
 QPushButton:hover{
@@ -1098,7 +1097,6 @@ font-family:&quot;Times New Roman&quot;;
          <property name="styleSheet">
           <string notr="true">QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;
 background:rgb(90, 191, 200);
-box-shadow: 10px 10px 5px #888888;
 
 }
 QPushButton:hover{
@@ -1144,7 +1142,6 @@ background:rgb(90, 171, 180)
          <property name="styleSheet">
           <string notr="true">QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;
 background:rgb(90, 191, 200);
-box-shadow: 10px 10px 5px #888888;
 
 }
 QPushButton:hover{
@@ -1196,7 +1193,6 @@ background:rgb(90, 171, 180)
          <property name="styleSheet">
           <string notr="true">QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;
 background:rgb(90, 191, 200);
-box-shadow: 10px 10px 5px #888888;
 
 }
 QPushButton:hover{

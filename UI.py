@@ -384,7 +384,6 @@ class Ui_MainWindow(object):
         self.chooseLocation.setAutoFillBackground(False)
         self.chooseLocation.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
-"box-shadow: 10px 10px 5px #888888;\n"
 "\n"
 "}\n"
 "QPushButton:hover{\n"
@@ -586,7 +585,6 @@ class Ui_MainWindow(object):
         self.pause_button.setFont(font)
         self.pause_button.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
-"box-shadow: 10px 10px 5px #888888;\n"
 "\n"
 "}\n"
 "QPushButton:hover{\n"
@@ -611,7 +609,6 @@ class Ui_MainWindow(object):
         self.stopButton.setFont(font)
         self.stopButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
-"box-shadow: 10px 10px 5px #888888;\n"
 "\n"
 "}\n"
 "QPushButton:hover{\n"
@@ -637,7 +634,6 @@ class Ui_MainWindow(object):
         self.startButton.setFont(font)
         self.startButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
-"box-shadow: 10px 10px 5px #888888;\n"
 "\n"
 "}\n"
 "QPushButton:hover{\n"
