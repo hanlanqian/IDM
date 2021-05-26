@@ -29,7 +29,7 @@ files = []
 
 
 class Download_Thread(QThread):
-    download_info_signal = pyqtSignal(str, float)
+    download_info_signal = pyqtSignal(dict)
 
     def __init__(self, thread_id, start_bytes, end_bytes):
         super(Download_Thread, self).__init__()
@@ -43,11 +43,11 @@ class Download_Thread(QThread):
     def run(self):
         start = time.time()
         self.headers.update({'Range': 'bytes={}-{}'.format(self.start_bytes, self.end_bytes)})
-        self.download_info_signal.emit('线程{}开始解析'.format(self.thread_id), 0.0)
+        self.download_info_signal.emit({'info': '线程{}开始解析'.format(self.thread_id)})
         r = session.get(g.globals_variable.url, headers=self.headers, stream=True)
-        self.download_info_signal.emit('线程{}解析用时{}'.format(self.thread_id, time.time() - start), 0.0)
+        self.download_info_signal.emit({'info': '线程{}解析用时{}'.format(self.thread_id, time.time() - start)})
         if r.status_code == 206 or r.status_code == 200:
-            self.download_info_signal.emit('线程{}开始写入'.format(self.thread_id), 0.0)
+            self.download_info_signal.emit({'info': '线程{}开始写入'.format(self.thread_id)})
             with open(g.globals_variable.filepath + g.globals_variable.filename + self.thread_id + '.tmp', 'ab+') as f:
                 files.append(f)
                 for chunk in r.iter_content(chunk_size=g.globals_variable.chunk_size):
@@ -57,11 +57,13 @@ class Download_Thread(QThread):
                     percent = g.globals_variable.chunk_size / (self.end_bytes - self.start_bytes)
                     g.globals_variable.sub_file_download_percent['线程' + self.thread_id] += percent * 100
                     g.globals_variable.total_download += g.globals_variable.chunk_size
-                    self.download_info_signal.emit(str(g.globals_variable.sub_file_download_percent),
-                                                   g.globals_variable.total_download)
-            self.download_info_signal.emit('线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start), 0.0)
+                    self.download_info_signal.emit({'sub_downloaded': g.globals_variable.sub_file_download_percent,
+                                                    'downloaded': g.globals_variable.total_download})
+            self.download_info_signal.emit({'info': '线程{}下载完成, 共用时{}s'.format(self.thread_id, time.time() - start)})
         else:
-            self.download_info_signal.emit('get请求出错', 0.0)
+            self.download_info_signal.emit({'info': 'get请求出错',
+                                            'value': -1}
+                                           )
 
 
 class MergeThread(Thread):
@@ -80,7 +82,9 @@ class MergeThread(Thread):
 
 
 class MultiThreadDownload(QThread):
-    download_info_signal = pyqtSignal(str, float)
+    download_info_signal = pyqtSignal(dict)
+
+    # processbar_info_signal = pyqtSignal(dict)
 
     def __init__(self, show_download_info):
         super(MultiThreadDownload, self).__init__()
@@ -90,25 +94,32 @@ class MultiThreadDownload(QThread):
 
     def run(self):
         if g.globals_variable.Type == 'Bilibili':
-            self.download_info_signal.emit('根据BV号下载视频：\n正在解析视频链接', 0.0)
+            self.download_info_signal.emit({'info': '根据BV号下载视频：\n正在解析视频链接',
+                                            })
             site.url = 'https://www.bilibili.com/video/' + g.globals_variable.BVid
             site.prepare()
             g.globals_variable.url = site.real_urls[0]
             g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + '.' + \
                                           g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
-            self.download_info_signal.emit('已获得真实视频链接，准备开始下载', 0.0)
-        self.download_info_signal.emit('开始解析连接', 0.0)
+            self.download_info_signal.emit({'info': '已获得真实视频链接，准备开始下载',
+                                            })
+        self.download_info_signal.emit({'info': '开始解析连接',
+                                        })
         start_time = time.time()
         head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
         g.globals_variable.file_size = int(head_info.headers['Content-Length'])
         if g.globals_variable.Type == 'Bilibili' and g.globals_variable.file_size < 1024:
-            self.download_info_signal.emit('获取真实链接失败，即将退出下载！', 0.0)
+            self.download_info_signal.emit({'info': '获取真实链接失败，即将退出下载！',
+                                            })
             self.Flag = False
             self.stop()
-            self.download_info_signal.emit("已停止下载", -1.0)
+            self.download_info_signal.emit({'info': "已停止下载",
+                                            'value': 1.0,
+                                            })
         sub_file_size = fileDivision(g.globals_variable.file_size, g.globals_variable.threads_num)
         self.download_info_signal.emit(
-            '该文件大小为{}kb, 共用时{}s'.format(g.globals_variable.file_size / 1024, time.time() - start_time), 0.0)
+            {'info': '该文件大小为{}kb, 共用时{}s'.format(g.globals_variable.file_size / 1024, time.time() - start_time),
+             })
         with open(g.globals_variable.filepath + g.globals_variable.filename, 'wb') as f:
             files.append(f)
             pass
@@ -118,18 +129,19 @@ class MultiThreadDownload(QThread):
             thread.download_info_signal.connect(self.show_download_info)
             thread.start()
             self.threads.append(thread)
-        while isAlive(self.threads) and self.threads[-1].StopFlag == False:
+        while isAlive(self.threads):
             time.sleep(0.1)
         for i in range(g.globals_variable.threads_num):
             MergeThread(i).start()
         total_time = time.time() - start_time
         self.download_info_signal.emit(
-            f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s', 0.0)
+            {'info': f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s',
+             })
 
     def pause(self):
-
-
-
+        for thread in self.threads:
+            thread.PauseFlag = not thread.PauseFlag
+        self.download_info_signal.emit({'info': "程序已暂停/继续！"})
 
     def stop(self):
         # 暂停下载后会关闭已打开文件并删除已经下载的文件

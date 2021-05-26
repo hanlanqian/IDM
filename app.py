@@ -2,8 +2,11 @@ import sys
 import os
 import globals_variable as g
 from Pyqt_IDM.threads import MultiThreadDownload
+from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from ui.UI import Ui_MainWindow
+from UI import Ui_MainWindow
+
+StopFlag = False
 
 
 class MyMain(QMainWindow):
@@ -13,6 +16,7 @@ class MyMain(QMainWindow):
         self.ui.setupUi(self)
         self.ui.chooseLocation.clicked.connect(self.choose)
         self.ui.startButton.clicked.connect(self.start_download)
+        self.ui.pause_button.clicked.connect(self.pause_download)
         self.ui.stopButton.clicked.connect(self.stop_download)
         self.ui.pushButton.clicked.connect(self.setting)
         with open('route/route.txt') as f:
@@ -32,15 +36,24 @@ class MyMain(QMainWindow):
             dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
             self.ui.filepathEdit.setText(dir_path + '/')
 
-    def show_download_info(self, info, value):
-        if value < 0.0:
-            QMessageBox.information(self, "出错啦", "解析视频链接失败")
-        elif value > 0.0:
-            self.ui.Download_info.undo()
-            self.ui.MainprogressBar.setValue(int(value / g.globals_variable.file_size * 100))
-            self.ui.Download_info.appendPlainText(info)
+    def show_download_info(self, info):
+        if 'info' in info.keys():
+            self.ui.Download_info.appendPlainText(info['info'])
+            if 'value' in info.keys():
+                if info['value'] < 0.0:
+                    QMessageBox.information(self, "出错啦", "解析链接失败")
+                elif info['value'] > 0.0:
+                    QMessageBox.information(self, "Bilibili error", "BV号解析失败")
         else:
-            self.ui.Download_info.appendPlainText(info)
+            self.ui.Download_info.undo()
+            self.ui.MainprogressBar.setValue(int(info['downloaded'] / g.globals_variable.file_size * 100))
+            download_info = ""
+            for thread_id, process in info['sub_downloaded'].items():
+                if process > 100:
+                    process = 100
+                download_info += 'INFO: {' + thread_id + '}' + str(round(process, 3)) + '%' + '\n'
+            self.ui.Download_info.appendPlainText(download_info)
+            self.ui.Download_info.moveCursor(QTextCursor.End)
 
     def setting(self):
         dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
@@ -66,8 +79,11 @@ class MyMain(QMainWindow):
         self.multidownload.start()
 
     def pause_download(self):
-
-        self.ui.pause_button.setText('继续下载')
+        self.multidownload.pause()
+        if self.ui.pause_button.text() == '暂停下载':
+            self.ui.pause_button.setText('继续下载')
+        else:
+            self.ui.pause_button.setText('暂停下载')
 
     def stop_download(self):
         if not self.multidownload.isRunning():

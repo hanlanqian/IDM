@@ -20,6 +20,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setStyleSheet("background:white")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -34,29 +35,171 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.tabWidget = QtWidgets.QTabWidget(self.verticalLayoutWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
+        self.tabWidget.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("宋体")
-        font.setPointSize(16)
+        font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.tabWidget.setFont(font)
         self.tabWidget.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.tabWidget.setMouseTracking(False)
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.tabWidget.setStyleSheet("QTabWidget#tabWidget{\n"
+"font-family:微软雅黑;\n"
+"font-size:25px;\n"
+"border-radius:18px;\n"
+"border: 3px solid white;\n"
+"}\n"
+"QTabWidget::pane { /* The tab widget frame */\n"
+"    border-top: 2px solid #C2C7CB;\n"
+"}\n"
+"QTabWidget::tab-bar {\n"
+"    alignment: left;\n"
+"    background-color:#FFFFFF;\n"
+"}\n"
+"\n"
+"QTabBar::tab {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+"                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+"    border: 2px solid #C4C4C3;\n"
+"    border-bottom-color: #C2C7CB; /* same as the pane color */\n"
+"    border-top-left-radius: 24px;\n"
+"    border-top-right-radius: 24px;\n"
+"    min-width: 119ex;\n"
+"    padding: 0px;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected, QTabBar::tab:hover {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,\n"
+"                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    border-color: #9B9B9B;\n"
+"    border-bottom-color: #C2C7CB; /* same as pane color */\n"
+"}\n"
+"\n"
+"QTabBar::tab:!selected {\n"
+"    margin-top: 2px; /* make non-selected tabs look smaller */\n"
+"}\n"
+"QTabBar::tab:selected {\n"
+"    /* expand/overlap to the left and right by 4px */\n"
+"    margin-left: -4px;\n"
+"    margin-right: -4px;\n"
+"}\n"
+"\n"
+"QTabBar::tab:first:selected {\n"
+"    margin-left: 0; /* the first selected tab has nothing to overlap with on the left */\n"
+"}\n"
+"\n"
+"QTabBar::tab:last:selected {\n"
+"    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
+"}\n"
+"\n"
+"QTabBar::tab:only-one {\n"
+"    margin: 0; /* if there is only one tab, we don\'t want overlapping margins */\n"
+"}")
         self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
-        self.tabWidget.setIconSize(QtCore.QSize(20, 20))
+        self.tabWidget.setIconSize(QtCore.QSize(30, 30))
         self.tabWidget.setElideMode(QtCore.Qt.ElideLeft)
         self.tabWidget.setMovable(True)
         self.tabWidget.setTabBarAutoHide(False)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+        self.label_6 = QtWidgets.QLabel(self.tab)
+        self.label_6.setGeometry(QtCore.QRect(10, 270, 126, 21))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(1)
+        sizePolicy.setVerticalStretch(1)
+        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("宋体")
+        font.setPointSize(16)
+        self.label_6.setFont(font)
+        self.label_6.setStyleSheet("")
+        self.label_6.setObjectName("label_6")
+        self.Download_info = QtWidgets.QPlainTextEdit(self.tab)
+        self.Download_info.setGeometry(QtCore.QRect(11, 310, 1051, 431))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(6)
+        sizePolicy.setVerticalStretch(10)
+        sizePolicy.setHeightForWidth(self.Download_info.sizePolicy().hasHeightForWidth())
+        self.Download_info.setSizePolicy(sizePolicy)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13, 128))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13, 128))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
+        self.Download_info.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        font.setPointSize(16)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.Download_info.setFont(font)
+        self.Download_info.setAutoFillBackground(True)
+        self.Download_info.setStyleSheet("font: 75 16pt \"Consolas\";rgb:(255, 0, 0);\n"
+"border: 3px solid gray;\n"
+"border-radius: 30px;\n"
+"background: white;")
+        self.Download_info.setReadOnly(True)
+        self.Download_info.setPlainText("")
+        self.Download_info.setObjectName("Download_info")
         self.layoutWidget = QtWidgets.QWidget(self.tab)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 1051, 751))
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 0, 1061, 191))
         self.layoutWidget.setObjectName("layoutWidget")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -81,6 +224,67 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(1)
         sizePolicy.setHeightForWidth(self.DownloadType.sizePolicy().hasHeightForWidth())
         self.DownloadType.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Times New Roman")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        font.setKerning(False)
+        font.setStyleStrategy(QtGui.QFont.PreferAntialias)
+        self.DownloadType.setFont(font)
+        self.DownloadType.setStyleSheet("QComboBox {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 3px;\n"
+"    padding: 1px 18px 1px 3px;\n"
+"    min-width: 6em;\n"
+"}\n"
+"\n"
+"QComboBox:editable {\n"
+"    background: white;\n"
+"}\n"
+"\n"
+"QComboBox:!editable, QComboBox::drop-down:editable {\n"
+"     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+"                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+"}\n"
+"\n"
+"/* QComboBox gets the \"on\" state when the popup is open */\n"
+"QComboBox:!editable:on, QComboBox::drop-down:editable:on {\n"
+"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,\n"
+"                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);\n"
+"}\n"
+"\n"
+"QComboBox:on { /* shift the text when the popup opens */\n"
+"    padding-top: 3px;\n"
+"    padding-left: 4px;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: 15px;\n"
+"\n"
+"    border-left-width: 1px;\n"
+"    border-left-color: darkgray;\n"
+"    border-left-style: solid; /* just a single line */\n"
+"    border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
+"    border-bottom-right-radius: 3px;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: url(/usr/share/icons/crystalsvg/16x16/actions/1downarrow.png);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
+"    top: 1px;\n"
+"    left: 1px;\n"
+"}\n"
+"QComboBox QAbstractItemView {\n"
+"    border: 2px solid darkgray;\n"
+"    selection-background-color: lightgray;\n"
+"}")
         self.DownloadType.setObjectName("DownloadType")
         self.DownloadType.addItem("")
         self.DownloadType.addItem("")
@@ -93,21 +297,48 @@ class Ui_MainWindow(object):
         self.URLlineEdit.setSizePolicy(sizePolicy)
         self.URLlineEdit.setMinimumSize(QtCore.QSize(0, 0))
         palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
@@ -147,9 +378,24 @@ class Ui_MainWindow(object):
         self.chooseLocation.setSizePolicy(sizePolicy)
         self.chooseLocation.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
-        font.setFamily("宋体")
-        font.setPointSize(12)
+        font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.chooseLocation.setFont(font)
+        self.chooseLocation.setAutoFillBackground(False)
+        self.chooseLocation.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+"background:rgb(90, 191, 200);\n"
+"box-shadow: 10px 10px 5px #888888;\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"background:rgb(90, 171, 180)\n"
+"}\n"
+"")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icon/Icon/Log.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.chooseLocation.setIcon(icon)
+        self.chooseLocation.setIconSize(QtCore.QSize(20, 20))
+        self.chooseLocation.setAutoDefault(True)
         self.chooseLocation.setObjectName("chooseLocation")
         self.horizontalLayout_10.addWidget(self.chooseLocation)
         self.horizontalLayout_10.setStretch(0, 1)
@@ -163,21 +409,48 @@ class Ui_MainWindow(object):
         self.filepathEdit.setSizePolicy(sizePolicy)
         self.filepathEdit.setMinimumSize(QtCore.QSize(0, 0))
         palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
@@ -186,6 +459,7 @@ class Ui_MainWindow(object):
         font.setFamily("宋体")
         font.setPointSize(14)
         self.filepathEdit.setFont(font)
+        self.filepathEdit.setReadOnly(True)
         self.filepathEdit.setObjectName("filepathEdit")
         self.horizontalLayout_7.addWidget(self.filepathEdit)
         self.horizontalLayout_7.setStretch(0, 2)
@@ -211,8 +485,32 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(1)
         sizePolicy.setHeightForWidth(self.horizontalSlider.sizePolicy().hasHeightForWidth())
         self.horizontalSlider.setSizePolicy(sizePolicy)
+        self.horizontalSlider.setStyleSheet("QSlider::groove:horizontal{\n"
+"        height: 16px;\n"
+"        left: 0px;\n"
+"        right: 0px;\n"
+"        border:0px;    \n"
+"        border-radius:6px;    \n"
+"        background:rgba(0,0,0,50);\n"
+" }\n"
+"QSlider::handle:horizontal{\n"
+"        width:  30px;\n"
+"        height: 30px;\n"
+"        margin-top: -8px;\n"
+"        margin-left: 0px;\n"
+"        margin-bottom: -8px;\n"
+"        margin-right: 0px;\n"
+"        border-image:url(:/icon/Icon/thread.png);\n"
+"}\n"
+"QSlider::sub-page:horizontal{\n"
+"       background:qlineargradient(spread:pad, x1:0, y1:0.54, x2:1, y2:0.545, stop:0.284091 rgba(18, 181, 200, 255), stop:0.619318 rgba(106, 209, 221, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"}\n"
+"QSlider::add-page:horizontal {\n"
+"    background: rgb(187, 191, 200)\n"
+"}")
         self.horizontalSlider.setMinimum(2)
         self.horizontalSlider.setMaximum(16)
+        self.horizontalSlider.setProperty("value", 6)
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setObjectName("horizontalSlider")
         self.horizontalLayout_8.addWidget(self.horizontalSlider)
@@ -249,12 +547,25 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.MainprogressBar.sizePolicy().hasHeightForWidth())
         self.MainprogressBar.setSizePolicy(sizePolicy)
-        self.MainprogressBar.setMinimumSize(QtCore.QSize(0, 0))
+        self.MainprogressBar.setMinimumSize(QtCore.QSize(0, 29))
         font = QtGui.QFont()
-        font.setFamily("宋体")
-        font.setPointSize(12)
+        font.setFamily("Times New Roman")
+        font.setPointSize(-1)
         self.MainprogressBar.setFont(font)
+        self.MainprogressBar.setStyleSheet("QProgressBar::chunk {background-color: #05B8CC;   width: 3px;}\n"
+"QProgressBar {   border: 2px solid grey;   border-radius: 8px;   text-align: center;\n"
+"\n"
+"    font-size:25px;\n"
+"font-family:\"Times New Roman\";\n"
+"    min-height: 25px;\n"
+"    max-height: 25px;\n"
+"}\n"
+"")
         self.MainprogressBar.setProperty("value", 0)
+        self.MainprogressBar.setTextVisible(True)
+        self.MainprogressBar.setOrientation(QtCore.Qt.Horizontal)
+        self.MainprogressBar.setInvertedAppearance(False)
+        self.MainprogressBar.setTextDirection(QtWidgets.QProgressBar.TopToBottom)
         self.MainprogressBar.setObjectName("MainprogressBar")
         self.horizontalLayout_9.addWidget(self.MainprogressBar)
         self.verticalLayout.addLayout(self.horizontalLayout_9)
@@ -262,13 +573,58 @@ class Ui_MainWindow(object):
         self.verticalLayout.setStretch(1, 1)
         self.verticalLayout.setStretch(2, 1)
         self.verticalLayout.setStretch(3, 1)
-        self.verticalLayout_3.addLayout(self.verticalLayout)
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.horizontalLayout.addItem(spacerItem)
-        self.startButton = QtWidgets.QPushButton(self.layoutWidget)
+        self.pause_button = QtWidgets.QPushButton(self.tab)
+        self.pause_button.setGeometry(QtCore.QRect(440, 200, 151, 51))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pause_button.sizePolicy().hasHeightForWidth())
+        self.pause_button.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        font.setPointSize(-1)
+        self.pause_button.setFont(font)
+        self.pause_button.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+"background:rgb(90, 191, 200);\n"
+"box-shadow: 10px 10px 5px #888888;\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"background:rgb(90, 171, 180)\n"
+"}\n"
+"")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/icon/Icon/Pause_1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pause_button.setIcon(icon1)
+        self.pause_button.setIconSize(QtCore.QSize(20, 20))
+        self.pause_button.setObjectName("pause_button")
+        self.stopButton = QtWidgets.QPushButton(self.tab)
+        self.stopButton.setGeometry(QtCore.QRect(800, 200, 151, 51))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.stopButton.sizePolicy().hasHeightForWidth())
+        self.stopButton.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        font.setPointSize(-1)
+        self.stopButton.setFont(font)
+        self.stopButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+"background:rgb(90, 191, 200);\n"
+"box-shadow: 10px 10px 5px #888888;\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"background:rgb(90, 171, 180)\n"
+"}\n"
+"")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/icon/Icon/Cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.stopButton.setIcon(icon2)
+        self.stopButton.setIconSize(QtCore.QSize(20, 20))
+        self.stopButton.setObjectName("stopButton")
+        self.startButton = QtWidgets.QPushButton(self.tab)
+        self.startButton.setGeometry(QtCore.QRect(80, 200, 151, 51))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(5)
         sizePolicy.setVerticalStretch(1)
@@ -276,99 +632,24 @@ class Ui_MainWindow(object):
         self.startButton.setSizePolicy(sizePolicy)
         self.startButton.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
-        font.setFamily("宋体")
-        font.setPointSize(14)
+        font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.startButton.setFont(font)
+        self.startButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+"background:rgb(90, 191, 200);\n"
+"box-shadow: 10px 10px 5px #888888;\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"background:rgb(90, 171, 180)\n"
+"}\n"
+"")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/icon/Icon/Download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.startButton.setIcon(icon3)
+        self.startButton.setIconSize(QtCore.QSize(20, 20))
         self.startButton.setObjectName("startButton")
-        self.horizontalLayout.addWidget(self.startButton)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.horizontalLayout.addItem(spacerItem1)
-        self.pause_button = QtWidgets.QPushButton(self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pause_button.sizePolicy().hasHeightForWidth())
-        self.pause_button.setSizePolicy(sizePolicy)
-        self.pause_button.setObjectName("pause_button")
-        self.horizontalLayout.addWidget(self.pause_button)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.horizontalLayout.addItem(spacerItem2)
-        self.stopButton = QtWidgets.QPushButton(self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.stopButton.sizePolicy().hasHeightForWidth())
-        self.stopButton.setSizePolicy(sizePolicy)
-        self.stopButton.setObjectName("stopButton")
-        self.horizontalLayout.addWidget(self.stopButton)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.horizontalLayout.addItem(spacerItem3)
-        self.horizontalLayout.setStretch(0, 1)
-        self.horizontalLayout.setStretch(1, 1)
-        self.horizontalLayout.setStretch(2, 1)
-        self.horizontalLayout.setStretch(3, 1)
-        self.horizontalLayout.setStretch(4, 1)
-        self.horizontalLayout.setStretch(5, 1)
-        self.horizontalLayout.setStretch(6, 1)
-        self.verticalLayout_3.addLayout(self.horizontalLayout)
-        self.label_6 = QtWidgets.QLabel(self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(1)
-        sizePolicy.setVerticalStretch(1)
-        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("宋体")
-        font.setPointSize(16)
-        self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
-        self.verticalLayout_3.addWidget(self.label_6)
-        self.Download_info = QtWidgets.QPlainTextEdit(self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(6)
-        sizePolicy.setVerticalStretch(10)
-        sizePolicy.setHeightForWidth(self.Download_info.sizePolicy().hasHeightForWidth())
-        self.Download_info.setSizePolicy(sizePolicy)
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13, 128))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(200, 13, 13, 128))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
-        self.Download_info.setPalette(palette)
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(16)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.Download_info.setFont(font)
-        self.Download_info.setAutoFillBackground(True)
-        self.Download_info.setStyleSheet("font: 75 16pt \"Consolas\";rgb:(255, 0, 0)")
-        self.Download_info.setReadOnly(True)
-        self.Download_info.setPlainText("")
-        self.Download_info.setObjectName("Download_info")
-        self.verticalLayout_3.addWidget(self.Download_info)
-        self.verticalLayout_3.setStretch(0, 3)
-        self.verticalLayout_3.setStretch(1, 1)
-        self.verticalLayout_3.setStretch(2, 1)
-        self.verticalLayout_3.setStretch(3, 8)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/下载.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tabWidget.addTab(self.tab, icon, "")
+        self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -389,7 +670,6 @@ class Ui_MainWindow(object):
         font.setFamily("宋体")
         font.setPointSize(14)
         self.lineEdit.setFont(font)
-        self.lineEdit.setText("")
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton = QtWidgets.QPushButton(self.tab_2)
         self.pushButton.setGeometry(QtCore.QRect(540, 70, 41, 31))
@@ -435,9 +715,9 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.checkBox_3.setFont(font)
         self.checkBox_3.setObjectName("checkBox_3")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/设置.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tabWidget.addTab(self.tab_2, icon1, "")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/设置.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.tabWidget.addTab(self.tab_2, icon4, "")
         self.tab_3 = QtWidgets.QWidget()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -445,9 +725,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tab_3.sizePolicy().hasHeightForWidth())
         self.tab_3.setSizePolicy(sizePolicy)
         self.tab_3.setObjectName("tab_3")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/日志.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.tabWidget.addTab(self.tab_3, icon2, "")
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/日志.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.tabWidget.addTab(self.tab_3, icon5, "")
         self.verticalLayout_2.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -459,6 +739,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "多线程IDM"))
+        self.label_6.setText(_translate("MainWindow", "下载详细信息"))
         self.label.setText(_translate("MainWindow", "下载类型："))
         self.DownloadType.setCurrentText(_translate("MainWindow", "URL"))
         self.DownloadType.setItemText(0, _translate("MainWindow", "URL"))
@@ -468,14 +749,14 @@ class Ui_MainWindow(object):
         self.chooseLocation.setText(_translate("MainWindow", "选择目录"))
         self.filepathEdit.setText(_translate("MainWindow", "./"))
         self.label_2.setText(_translate("MainWindow", "线程数："))
-        self.label_7.setText(_translate("MainWindow", "2"))
+        self.label_7.setText(_translate("MainWindow", "6"))
         self.label_3.setText(_translate("MainWindow", "下载进度："))
-        self.startButton.setText(_translate("MainWindow", "开始下载"))
         self.pause_button.setText(_translate("MainWindow", "暂停下载"))
         self.stopButton.setText(_translate("MainWindow", "停止下载"))
-        self.label_6.setText(_translate("MainWindow", "下载详细信息"))
+        self.startButton.setText(_translate("MainWindow", "开始下载"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "下载"))
         self.label_4.setText(_translate("MainWindow", "文件下载目录："))
+        self.lineEdit.setText(_translate("MainWindow", "./"))
         self.pushButton.setText(_translate("MainWindow", "..."))
         self.Limit_Speed.setItemText(0, _translate("MainWindow", "128 KB/s"))
         self.Limit_Speed.setItemText(1, _translate("MainWindow", "256KB/s"))
@@ -489,3 +770,4 @@ class Ui_MainWindow(object):
         self.checkBox_3.setText(_translate("MainWindow", "限速下载"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "设置"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "日志"))
+import image_rc
