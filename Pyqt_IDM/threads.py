@@ -86,6 +86,7 @@ class MultiThreadDownload(QThread):
         super(MultiThreadDownload, self).__init__()
         self.show_download_info = show_download_info
         self.threads = []
+        self.Flag = True
 
     def run(self):
         if g.globals_variable.Type == 'Bilibili':
@@ -100,7 +101,8 @@ class MultiThreadDownload(QThread):
         head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
         g.globals_variable.file_size = int(head_info.headers['Content-Length'])
         if g.globals_variable.Type == 'Bilibili' and g.globals_variable.file_size < 1024:
-            self.download_info_signal.emit('获取真实链接失败，即将退出下载！')
+            self.download_info_signal.emit('获取真实链接失败，即将退出下载！', 0.0)
+            self.Flag = False
             self.stop()
             self.download_info_signal.emit("已停止下载", -1.0)
         sub_file_size = fileDivision(g.globals_variable.file_size, g.globals_variable.threads_num)
@@ -129,7 +131,8 @@ class MultiThreadDownload(QThread):
             file.close()
         for thread in self.threads:
             thread.terminate()
-        os.remove(g.globals_variable.filepath + g.globals_variable.filename)
+        if self.Flag:
+            os.remove(g.globals_variable.filepath + g.globals_variable.filename)
         for i in range(g.globals_variable.threads_num):
             os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
         self.terminate()

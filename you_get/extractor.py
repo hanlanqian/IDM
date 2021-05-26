@@ -1,12 +1,6 @@
 #!/usr/bin/env python
-import time
+from .common import parse_host, set_proxy, unset_proxy
 
-from .common import match1, maybe_print, get_filename, parse_host, set_proxy, unset_proxy, get_content, dry_run, player
-from .common import print_more_compatible as print
-from .util import log
-from . import json_output
-import os
-import sys
 
 class Extractor():
     def __init__(self, *args):
@@ -90,92 +84,8 @@ class VideoExtractor():
         pass
         #raise NotImplementedError()
 
-    def p_stream(self, stream_id):
-        if stream_id in self.streams:
-            stream = self.streams[stream_id]
-        else:
-            stream = self.dash_streams[stream_id]
 
-        if 'itag' in stream:
-            print("    - itag:          %s" % log.sprint(stream_id, log.NEGATIVE))
-        else:
-            print("    - format:        %s" % log.sprint(stream_id, log.NEGATIVE))
 
-        if 'container' in stream:
-            print("      container:     %s" % stream['container'])
 
-        if 'video_profile' in stream:
-            maybe_print("      video-profile: %s" % stream['video_profile'])
 
-        if 'quality' in stream:
-            print("      quality:       %s" % stream['quality'])
-
-        if 'size' in stream and 'container' in stream and stream['container'].lower() != 'm3u8':
-            if stream['size'] != float('inf')  and stream['size'] != 0:
-                print("      size:          %s MiB (%s bytes)" % (round(stream['size'] / 1048576, 1), stream['size']))
-
-        if 'm3u8_url' in stream:
-            print("      m3u8_url:      {}".format(stream['m3u8_url']))
-
-        if 'itag' in stream:
-            print("    # download-with: %s" % log.sprint("you-get --itag=%s [URL]" % stream_id, log.UNDERLINE))
-        else:
-            print("    # download-with: %s" % log.sprint("you-get --format=%s [URL]" % stream_id, log.UNDERLINE))
-
-        print()
-
-    def p_i(self, stream_id):
-        if stream_id in self.streams:
-            stream = self.streams[stream_id]
-        else:
-            stream = self.dash_streams[stream_id]
-
-        maybe_print("    - title:         %s" % self.title)
-        print("       size:         %s MiB (%s bytes)" % (round(stream['size'] / 1048576, 1), stream['size']))
-        print("        url:         %s" % self.url)
-        print()
-
-        sys.stdout.flush()
-
-    def p(self, stream_id=None):
-        maybe_print("site:                %s" % self.__class__.name)
-        maybe_print("title:               %s" % self.title)
-        if stream_id:
-            # Print the stream
-            print("stream:")
-            self.p_stream(stream_id)
-
-        elif stream_id is None:
-            # Print stream with best quality
-            print("stream:              # Best quality")
-            stream_id = self.streams_sorted[0]['id'] if 'id' in self.streams_sorted[0] else self.streams_sorted[0]['itag']
-            self.p_stream(stream_id)
-
-        elif stream_id == []:
-            print("streams:             # Available quality and codecs")
-            # Print DASH streams
-            if self.dash_streams:
-                print("    [ DASH ] %s" % ('_' * 36))
-                itags = sorted(self.dash_streams,
-                               key=lambda i: -self.dash_streams[i]['size'])
-                for stream in itags:
-                    self.p_stream(stream)
-            # Print all other available streams
-            if self.streams_sorted:
-                print("    [ DEFAULT ] %s" % ('_' * 33))
-                for stream in self.streams_sorted:
-                    self.p_stream(stream['id'] if 'id' in stream else stream['itag'])
-
-        if self.audiolang:
-            print("audio-languages:")
-            for i in self.audiolang:
-                print("    - lang:          {}".format(i['lang']))
-                print("      download-url:  {}\n".format(i['url']))
-
-        sys.stdout.flush()
-
-    def p_playlist(self, stream_id=None):
-        maybe_print("site:                %s" % self.__class__.name)
-        print("playlist:            %s" % self.title)
-        print("videos:")
 
