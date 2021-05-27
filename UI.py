@@ -48,71 +48,71 @@ class Ui_MainWindow(object):
         self.tabWidget.setMouseTracking(False)
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabWidget.setStyleSheet("QTabWidget#tabWidget{\n"
-"font-family:微软雅黑;\n"
-"font-size:25px;\n"
-"border-radius:18px;\n"
-"border: 3px solid white;\n"
-# "padding-left:10px\n"
-"}\n"
-"QTabWidget::pane { /* The tab widget frame */\n"
-"    border-top: 2px solid #C2C7CB;\n"
-"}\n"
-"QTabWidget::tab-bar {\n"
-"    alignment: left;\n"
-"    background-color:#FFFFFF;\n"
-"    left:80px\n"
-"}\n"
-"\n"
-# "QTabBar#ware_tabbar::tab{\n"
-# "    height: 27px;\n"
-# "    min-width: 113px;\n"
-# "    border: none;\n"
-# "    margin-left: 5px;\n"
-# "    color: #999999;\n"
-# "}\n"
-"QTabBar::tab {\n"
-"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
-"                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
-"    border: 2px solid #C4C4C3;\n"
-"    border-bottom-color: #C2C7CB; /* same as the pane color */\n"
-"    border-top-left-radius: 24px;\n"
-"    border-top-right-radius: 24px;\n"
-"    min-width: 100ex;\n"
-"    padding-left: 10px;\n"
-"}\n"
-"\n"
-"QTabBar::tab:selected, QTabBar::tab:hover {\n"
-"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,\n"
-"                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);\n"
-"}\n"
-"\n"
-"QTabBar::tab:selected {\n"
-"    border-color: #9B9B9B;\n"
-"    border-bottom-color: #C2C7CB; /* same as pane color */\n"
-"}\n"
-"\n"
-"QTabBar::tab:!selected {\n"
-"    margin-top: 2px; /* make non-selected tabs look smaller */\n"
-"}\n"
-"QTabBar::tab:selected {\n"
-"    /* expand/overlap to the left and right by 4px */\n"
-"    margin-left: -4px;\n"
-"    margin-right: -4px;\n"
-"}\n"
-"\n"
-"QTabBar::tab:first:selected {\n"
-"    margin-left: 0; /* the first selected tab has nothing to overlap with on the left */\n"
-"}\n"
-"\n"
-"QTabBar::tab:last:selected {\n"
-"    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
-"}\n"
-"\n"
-"QTabBar::tab:only-one {\n"
-"    margin: 0; /* if there is only one tab, we don\'t want overlapping margins */\n"
-"}")
+                                     "font-family:微软雅黑;\n"
+                                     "font-size:25px;\n"
+                                     "border-radius:18px;\n"
+                                     "border: 3px solid white;\n"
+                                     # "padding-left:10px\n"
+                                     "}\n"
+                                     "QTabWidget::pane { /* The tab widget frame */\n"
+                                     "    border-top: 2px solid #C2C7CB;\n"
+                                     "}\n"
+                                     "QTabWidget::tab-bar {\n"
+                                     "    alignment: left;\n"
+                                     "    background-color:#FFFFFF;\n"
+                                     "    left:80px\n"
+                                     "}\n"
+                                     "\n"
+                                     # "QTabBar#ware_tabbar::tab{\n"
+                                     # "    height: 27px;\n"
+                                     # "    min-width: 113px;\n"
+                                     # "    border: none;\n"
+                                     # "    margin-left: 5px;\n"
+                                     # "    color: #999999;\n"
+                                     # "}\n"
+                                     "QTabBar::tab {\n"
+                                     "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                     "                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+                                     "                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+                                     "    border: 2px solid #C4C4C3;\n"
+                                     "    border-bottom-color: #C2C7CB; /* same as the pane color */\n"
+                                     "    border-top-left-radius: 24px;\n"
+                                     "    border-top-right-radius: 24px;\n"
+                                     "    min-width: 100ex;\n"
+                                     "    padding-left: 10px;\n"
+                                     "}\n"
+                                     "\n"
+                                     "QTabBar::tab:selected, QTabBar::tab:hover {\n"
+                                     "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                     "                                stop: 0 #fafafa, stop: 0.4 #f4f4f4,\n"
+                                     "                                stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);\n"
+                                     "}\n"
+                                     "\n"
+                                     "QTabBar::tab:selected {\n"
+                                     "    border-color: #9B9B9B;\n"
+                                     "    border-bottom-color: #C2C7CB; /* same as pane color */\n"
+                                     "}\n"
+                                     "\n"
+                                     "QTabBar::tab:!selected {\n"
+                                     "    margin-top: 2px; /* make non-selected tabs look smaller */\n"
+                                     "}\n"
+                                     "QTabBar::tab:selected {\n"
+                                     "    /* expand/overlap to the left and right by 4px */\n"
+                                     "    margin-left: -4px;\n"
+                                     "    margin-right: -4px;\n"
+                                     "}\n"
+                                     "\n"
+                                     "QTabBar::tab:first:selected {\n"
+                                     "    margin-left: 0; /* the first selected tab has nothing to overlap with on the left */\n"
+                                     "}\n"
+                                     "\n"
+                                     "QTabBar::tab:last:selected {\n"
+                                     "    margin-right: 0; /* the last selected tab has nothing to overlap with on the right */\n"
+                                     "}\n"
+                                     "\n"
+                                     "QTabBar::tab:only-one {\n"
+                                     "    margin: 0; /* if there is only one tab, we don\'t want overlapping margins */\n"
+                                     "}")
         self.tabWidget.setTabPosition(QtWidgets.QTabWidget.North)
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Triangular)
         self.tabWidget.setIconSize(QtCore.QSize(30, 30))
@@ -198,9 +198,9 @@ class Ui_MainWindow(object):
         self.Download_info.setFont(font)
         self.Download_info.setAutoFillBackground(True)
         self.Download_info.setStyleSheet("font: 75 16pt \"Consolas\";rgb:(255, 0, 0);\n"
-"border: 3px solid gray;\n"
-"border-radius: 30px;\n"
-"background: white;")
+                                         "border: 3px solid gray;\n"
+                                         "border-radius: 30px;\n"
+                                         "background: white;")
         self.Download_info.setReadOnly(True)
         self.Download_info.setPlainText("")
         self.Download_info.setObjectName("Download_info")
@@ -242,61 +242,61 @@ class Ui_MainWindow(object):
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
         self.DownloadType.setFont(font)
         self.DownloadType.setStyleSheet("QComboBox {\n"
-"    border: 1px solid gray;\n"
-"    border-radius: 9px;\n"
-"    padding: 1px 10px 1px 1px;\n"
-"    min-width: 6em;\n"
-"}\n"
-"\n"
-"QComboBox:editable {\n"
-"    background: white;\n"
-"}\n"
-"\n"
-"QComboBox:!editable, QComboBox::drop-down:editable {\n"
-"     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
-"                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
-"}\n"
-"\n"
-"/* QComboBox gets the \"on\" state when the popup is open */\n"
-"QComboBox:!editable:on, QComboBox::drop-down:editable:on {\n"
-"    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,\n"
-"                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);\n"
-"}\n"
-"\n"
-"QComboBox:on { /* shift the text when the popup opens */\n"
-"    padding-top: 3px;\n"
-"    padding-left: 4px;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    subcontrol-origin: padding;\n"
-"    subcontrol-position: top right;\n"
-"    width: 15px;\n"
-"\n"
-"    border-left-width: 1px;\n"
-"    border-left-color: darkgray;\n"
-"    border-left-style: solid; /* just a single line */\n"
-"    border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
-"    border-bottom-right-radius: 3px;\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: url(:/icon/Icon/arrow.png);\n"
-"    height:18px;\n"
-"    width:18px;\n"
-"    padding-left: 3px;\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
-"    top: 1px;\n"
-"    left: 1px;\n"
-"}\n"
-"QComboBox QAbstractItemView {\n"
-"    border: 2px solid darkgray;\n"
-"    selection-background-color: lightgray;\n"
-"}")
+                                        "    border: 1px solid gray;\n"
+                                        "    border-radius: 9px;\n"
+                                        "    padding: 1px 10px 1px 1px;\n"
+                                        "    min-width: 6em;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox:editable {\n"
+                                        "    background: white;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox:!editable, QComboBox::drop-down:editable {\n"
+                                        "     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                        "                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+                                        "                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+                                        "}\n"
+                                        "\n"
+                                        "/* QComboBox gets the \"on\" state when the popup is open */\n"
+                                        "QComboBox:!editable:on, QComboBox::drop-down:editable:on {\n"
+                                        "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                        "                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,\n"
+                                        "                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox:on { /* shift the text when the popup opens */\n"
+                                        "    padding-top: 3px;\n"
+                                        "    padding-left: 4px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox::drop-down {\n"
+                                        "    subcontrol-origin: padding;\n"
+                                        "    subcontrol-position: top right;\n"
+                                        "    width: 15px;\n"
+                                        "\n"
+                                        "    border-left-width: 1px;\n"
+                                        "    border-left-color: darkgray;\n"
+                                        "    border-left-style: solid; /* just a single line */\n"
+                                        "    border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
+                                        "    border-bottom-right-radius: 3px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox::down-arrow {\n"
+                                        "    image: url(:/icon/Icon/arrow.png);\n"
+                                        "    height:18px;\n"
+                                        "    width:18px;\n"
+                                        "    padding-left: 3px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
+                                        "    top: 1px;\n"
+                                        "    left: 1px;\n"
+                                        "}\n"
+                                        "QComboBox QAbstractItemView {\n"
+                                        "    border: 2px solid darkgray;\n"
+                                        "    selection-background-color: lightgray;\n"
+                                        "}")
         self.DownloadType.setObjectName("DownloadType")
         self.DownloadType.addItem("")
         self.DownloadType.addItem("")
@@ -308,6 +308,14 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.URLlineEdit.sizePolicy().hasHeightForWidth())
         self.URLlineEdit.setSizePolicy(sizePolicy)
         self.URLlineEdit.setMinimumSize(QtCore.QSize(0, 0))
+        # self.URLlineEdit.setStyleSheet("QLineEdit{\n"
+        #                                "border:1px solid rgb(180, 180, 180);\n"
+        #                                "background: rgb(230,230,230);\n"
+        #                                "border-radius: 4px;}\n"
+        #                                "QLineEdit::hover{\n"
+        #                                "color:green\n"
+        #                                "border-color:rgb(50,480,40);\n"
+        #                                "  background-color:green;}\n")
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -394,14 +402,15 @@ class Ui_MainWindow(object):
         font.setPointSize(-1)
         self.chooseLocation.setFont(font)
         self.chooseLocation.setAutoFillBackground(False)
-        self.chooseLocation.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-"background:rgb(90, 191, 200);\n"
-"\n"
-"}\n"
-"QPushButton:hover{\n"
-"background:rgb(90, 171, 180)\n"
-"}\n"
-"")
+        self.chooseLocation.setStyleSheet(
+            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+            "background:rgb(90, 191, 200);\n"
+            "\n"
+            "}\n"
+            "QPushButton:hover{\n"
+            "background:rgb(90, 171, 180)\n"
+            "}\n"
+            "")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Icon/Log.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.chooseLocation.setIcon(icon)
@@ -497,31 +506,32 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.horizontalSlider.sizePolicy().hasHeightForWidth())
         self.horizontalSlider.setSizePolicy(sizePolicy)
         self.horizontalSlider.setStyleSheet("QSlider::groove:horizontal{\n"
-"        height: 16px;\n"
-"        left: 0px;\n"
-"        right: 0px;\n"
-"        border:0px;    \n"
-"        border-radius:6px;    \n"
-"        background:rgba(0,0,0,50);\n"
-" }\n"
-"QSlider::handle:horizontal{\n"
-"        width:  30px;\n"
-"        height: 30px;\n"
-"        margin-top: -8px;\n"
-"        margin-left: 0px;\n"
-"        margin-bottom: -8px;\n"
-"        margin-right: 0px;\n"
-"        border-image:url(:/icon/Icon/thread.png);\n"
-"}\n"
-"QSlider::sub-page:horizontal{\n"
-"       background:qlineargradient(spread:pad, x1:0, y1:0.54, x2:1, y2:0.545, stop:0.284091 rgba(18, 181, 200, 255), stop:0.619318 rgba(106, 209, 221, 255), stop:1 rgba(255, 255, 255, 255));\n"
-"}\n"
-"QSlider::add-page:horizontal {\n"
-"    background: rgb(187, 191, 200)\n"
-"}")
+                                            "        height: 16px;\n"
+                                            "        left: 0px;\n"
+                                            "        right: 0px;\n"
+                                            "        border:0px;    \n"
+                                            "        border-radius:6px;    \n"
+                                            "        background:rgba(0,0,0,50);\n"
+                                            " }\n"
+                                            "QSlider::handle:horizontal{\n"
+                                            "        width:  30px;\n"
+                                            "        height: 30px;\n"
+                                            "        margin-top: -8px;\n"
+                                            "        margin-left: 0px;\n"
+                                            "        margin-bottom: -8px;\n"
+                                            "        margin-right: 0px;\n"
+                                            "        border-image:url(Icon/thread.png);\n"
+                                            "}\n"
+                                            "QSlider::sub-page:horizontal{\n"
+                                            "       background:qlineargradient(spread:pad, x1:0, y1:0.54, x2:1, y2:0.545, stop:0.284091 rgba(18, 181, 200, 255), stop:0.619318 rgba(106, 209, 221, 255), stop:1 rgba(255, 255, 255, 255));\n"
+                                            "}\n"
+                                            "QSlider::add-page:horizontal {\n"
+                                            "    background: rgb(187, 191, 200)\n"
+                                            "}")
         self.horizontalSlider.setMinimum(2)
         self.horizontalSlider.setMaximum(16)
-        self.horizontalSlider.setProperty("value", 6)
+        self.horizontalSlider.setSingleStep(2)
+        self.horizontalSlider.setValue(4)
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setObjectName("horizontalSlider")
         self.horizontalLayout_8.addWidget(self.horizontalSlider)
@@ -564,14 +574,14 @@ class Ui_MainWindow(object):
         font.setPointSize(-1)
         self.MainprogressBar.setFont(font)
         self.MainprogressBar.setStyleSheet("QProgressBar::chunk {background-color: #05B8CC;   width: 3px;}\n"
-"QProgressBar {   border: 2px solid grey;   border-radius: 8px;   text-align: center;\n"
-"\n"
-"    font-size:25px;\n"
-"font-family:\"Times New Roman\";\n"
-"    min-height: 25px;\n"
-"    max-height: 25px;\n"
-"}\n"
-"")
+                                           "QProgressBar {   border: 2px solid grey;   border-radius: 8px;   text-align: center;\n"
+                                           "\n"
+                                           "    font-size:25px;\n"
+                                           "font-family:\"Times New Roman\";\n"
+                                           "    min-height: 25px;\n"
+                                           "    max-height: 25px;\n"
+                                           "}\n"
+                                           "")
         self.MainprogressBar.setProperty("value", 0)
         self.MainprogressBar.setTextVisible(True)
         self.MainprogressBar.setOrientation(QtCore.Qt.Horizontal)
@@ -595,14 +605,15 @@ class Ui_MainWindow(object):
         font.setFamily("微软雅黑")
         font.setPointSize(-1)
         self.pause_button.setFont(font)
-        self.pause_button.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-"background:rgb(90, 191, 200);\n"
-"\n"
-"}\n"
-"QPushButton:hover{\n"
-"background:rgb(90, 171, 180)\n"
-"}\n"
-"")
+        self.pause_button.setStyleSheet(
+            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+            "background:rgb(90, 191, 200);\n"
+            "\n"
+            "}\n"
+            "QPushButton:hover{\n"
+            "background:rgb(90, 171, 180)\n"
+            "}\n"
+            "")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("Icon/Pause_1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pause_button.setIcon(icon1)
@@ -619,14 +630,15 @@ class Ui_MainWindow(object):
         font.setFamily("微软雅黑")
         font.setPointSize(-1)
         self.stopButton.setFont(font)
-        self.stopButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-"background:rgb(90, 191, 200);\n"
-"\n"
-"}\n"
-"QPushButton:hover{\n"
-"background:rgb(90, 171, 180)\n"
-"}\n"
-"")
+        self.stopButton.setStyleSheet(
+            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+            "background:rgb(90, 191, 200);\n"
+            "\n"
+            "}\n"
+            "QPushButton:hover{\n"
+            "background:rgb(90, 171, 180)\n"
+            "}\n"
+            "")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("Icon/Cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stopButton.setIcon(icon2)
@@ -644,14 +656,15 @@ class Ui_MainWindow(object):
         font.setFamily("微软雅黑")
         font.setPointSize(-1)
         self.startButton.setFont(font)
-        self.startButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-"background:rgb(90, 191, 200);\n"
-"\n"
-"}\n"
-"QPushButton:hover{\n"
-"background:rgb(90, 171, 180)\n"
-"}\n"
-"")
+        self.startButton.setStyleSheet(
+            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+            "background:rgb(90, 191, 200);\n"
+            "\n"
+            "}\n"
+            "QPushButton:hover{\n"
+            "background:rgb(90, 171, 180)\n"
+            "}\n"
+            "")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("Icon/Download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.startButton.setIcon(icon3)
@@ -686,8 +699,72 @@ class Ui_MainWindow(object):
         font.setPointSize(10)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
+            "background:rgb(90, 191, 200);\n"
+            "\n"
+            "}\n"
+            "QPushButton:hover{\n"
+            "background:rgb(90, 171, 180)\n"
+            "}\n"
+            "")
         self.Limit_Speed = QtWidgets.QComboBox(self.tab_2)
         self.Limit_Speed.setGeometry(QtCore.QRect(160, 180, 121, 21))
+        self.Limit_Speed.setStyleSheet("QComboBox {\n"
+                                        "    border: 1px solid gray;\n"
+                                        "    border-radius: 9px;\n"
+                                        "    padding: 1px 10px 1px 1px;\n"
+                                        "    min-width: 6em;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox:editable {\n"
+                                        "    background: white;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox:!editable, QComboBox::drop-down:editable {\n"
+                                        "     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                        "                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+                                        "                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+                                        "}\n"
+                                        "\n"
+                                        "/* QComboBox gets the \"on\" state when the popup is open */\n"
+                                        "QComboBox:!editable:on, QComboBox::drop-down:editable:on {\n"
+                                        "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+                                        "                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,\n"
+                                        "                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox:on { /* shift the text when the popup opens */\n"
+                                        "    padding-top: 3px;\n"
+                                        "    padding-left: 4px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox::drop-down {\n"
+                                        "    subcontrol-origin: padding;\n"
+                                        "    subcontrol-position: top right;\n"
+                                        "    width: 15px;\n"
+                                        "\n"
+                                        "    border-left-width: 1px;\n"
+                                        "    border-left-color: darkgray;\n"
+                                        "    border-left-style: solid; /* just a single line */\n"
+                                        "    border-top-right-radius: 3px; /* same radius as the QComboBox */\n"
+                                        "    border-bottom-right-radius: 3px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox::down-arrow {\n"
+                                        "    image: url(:/icon/Icon/arrow.png);\n"
+                                        "    height:18px;\n"
+                                        "    width:18px;\n"
+                                        "    padding-left: 3px;\n"
+                                        "}\n"
+                                        "\n"
+                                        "QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
+                                        "    top: 1px;\n"
+                                        "    left: 1px;\n"
+                                        "}\n"
+                                        "QComboBox QAbstractItemView {\n"
+                                        "    border: 2px solid darkgray;\n"
+                                        "    selection-background-color: lightgray;\n"
+                                        "}")
         font = QtGui.QFont()
         font.setFamily("宋体")
         font.setPointSize(12)
@@ -741,7 +818,8 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
-        self.horizontalSlider.sliderMoved['int'].connect(self.label_7.setNum)
+        # self.horizontalSlider.sliderMoved['int'].connect(self.label_7.setNum)
+        self.horizontalSlider.valueChanged.connect(self.valueChange)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -788,3 +866,6 @@ class Ui_MainWindow(object):
         download_icon = QtGui.QIcon()
         download_icon.addPixmap(QtGui.QPixmap("Icon/donwload2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.tabWidget.setTabIcon(self.tabWidget.indexOf(self.tab), download_icon)
+
+    def valueChange(self):
+        self.label_7.setNum(self.horizontalSlider.value())

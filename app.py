@@ -56,6 +56,7 @@ class MyMain(QMainWindow):
             for thread_id, process in info['sub_downloaded'].items():
                 if process > 100:
                     process = 100
+                    QMessageBox.information(self, "成功！", "您的下载已经完成")
                 download_info += 'INFO: {' + thread_id + '}' + str(round(process, 3)) + '%' + '\n'
             self.ui.Download_info.appendPlainText(download_info)
             self.ui.Download_info.moveCursor(QTextCursor.End)
