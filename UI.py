@@ -403,7 +403,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/icon/Icon/Log.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("Icon/Log.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.chooseLocation.setIcon(icon)
         self.chooseLocation.setIconSize(QtCore.QSize(20, 20))
         self.chooseLocation.setAutoDefault(True)
@@ -604,7 +604,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/icon/Icon/Pause_1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("Icon/Pause_1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pause_button.setIcon(icon1)
         self.pause_button.setIconSize(QtCore.QSize(20, 20))
         self.pause_button.setObjectName("pause_button")
@@ -628,7 +628,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/icon/Icon/Cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("Icon/Cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stopButton.setIcon(icon2)
         self.stopButton.setIconSize(QtCore.QSize(20, 20))
         self.stopButton.setObjectName("stopButton")
@@ -653,7 +653,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/icon/Icon/Download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("Icon/Download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.startButton.setIcon(icon3)
         self.startButton.setIconSize(QtCore.QSize(20, 20))
         self.startButton.setObjectName("startButton")
@@ -788,4 +788,3 @@ class Ui_MainWindow(object):
         download_icon = QtGui.QIcon()
         download_icon.addPixmap(QtGui.QPixmap("Icon/donwload2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.tabWidget.setTabIcon(self.tabWidget.indexOf(self.tab), download_icon)
-import image_rc
