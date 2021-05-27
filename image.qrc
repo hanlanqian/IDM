@@ -3,6 +3,8 @@
     <file>images/QQ截图20201222225024.png</file>
   </qresource>
   <qresource prefix="icon">
+    <file>Icon/arrow.png</file>
+    <file>Icon/Bilibili2.png</file>
     <file>Icon/thread.png</file>
     <file>Icon/Bilibili.png</file>
     <file>Icon/Cancel.png</file>

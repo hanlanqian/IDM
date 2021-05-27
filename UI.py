@@ -42,6 +42,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.tabWidget.setFont(font)
         self.tabWidget.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.tabWidget.setMouseTracking(False)
@@ -51,6 +52,7 @@ class Ui_MainWindow(object):
 "font-size:25px;\n"
 "border-radius:18px;\n"
 "border: 3px solid white;\n"
+# "padding-left:10px\n"
 "}\n"
 "QTabWidget::pane { /* The tab widget frame */\n"
 "    border-top: 2px solid #C2C7CB;\n"
@@ -58,8 +60,16 @@ class Ui_MainWindow(object):
 "QTabWidget::tab-bar {\n"
 "    alignment: left;\n"
 "    background-color:#FFFFFF;\n"
+"    left:80px\n"
 "}\n"
 "\n"
+# "QTabBar#ware_tabbar::tab{\n"
+# "    height: 27px;\n"
+# "    min-width: 113px;\n"
+# "    border: none;\n"
+# "    margin-left: 5px;\n"
+# "    color: #999999;\n"
+# "}\n"
 "QTabBar::tab {\n"
 "    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
 "                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
@@ -68,8 +78,8 @@ class Ui_MainWindow(object):
 "    border-bottom-color: #C2C7CB; /* same as the pane color */\n"
 "    border-top-left-radius: 24px;\n"
 "    border-top-right-radius: 24px;\n"
-"    min-width: 119ex;\n"
-"    padding: 0px;\n"
+"    min-width: 100ex;\n"
+"    padding-left: 10px;\n"
 "}\n"
 "\n"
 "QTabBar::tab:selected, QTabBar::tab:hover {\n"
@@ -233,8 +243,8 @@ class Ui_MainWindow(object):
         self.DownloadType.setFont(font)
         self.DownloadType.setStyleSheet("QComboBox {\n"
 "    border: 1px solid gray;\n"
-"    border-radius: 3px;\n"
-"    padding: 1px 18px 1px 3px;\n"
+"    border-radius: 9px;\n"
+"    padding: 1px 10px 1px 1px;\n"
 "    min-width: 6em;\n"
 "}\n"
 "\n"
@@ -273,7 +283,10 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QComboBox::down-arrow {\n"
-"    image: url(/usr/share/icons/crystalsvg/16x16/actions/1downarrow.png);\n"
+"    image: url(:/icon/Icon/arrow.png);\n"
+"    height:18px;\n"
+"    width:18px;\n"
+"    padding-left: 3px;\n"
 "}\n"
 "\n"
 "QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
@@ -378,6 +391,7 @@ class Ui_MainWindow(object):
         self.chooseLocation.setMinimumSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.chooseLocation.setFont(font)
         self.chooseLocation.setAutoFillBackground(False)
         self.chooseLocation.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
@@ -547,6 +561,7 @@ class Ui_MainWindow(object):
         self.MainprogressBar.setMinimumSize(QtCore.QSize(0, 29))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
+        font.setPointSize(-1)
         self.MainprogressBar.setFont(font)
         self.MainprogressBar.setStyleSheet("QProgressBar::chunk {background-color: #05B8CC;   width: 3px;}\n"
 "QProgressBar {   border: 2px solid grey;   border-radius: 8px;   text-align: center;\n"
@@ -578,6 +593,7 @@ class Ui_MainWindow(object):
         self.pause_button.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.pause_button.setFont(font)
         self.pause_button.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
@@ -601,6 +617,7 @@ class Ui_MainWindow(object):
         self.stopButton.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.stopButton.setFont(font)
         self.stopButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
@@ -625,6 +642,7 @@ class Ui_MainWindow(object):
         self.startButton.setMinimumSize(QtCore.QSize(10, 0))
         font = QtGui.QFont()
         font.setFamily("微软雅黑")
+        font.setPointSize(-1)
         self.startButton.setFont(font)
         self.startButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
 "background:rgb(90, 191, 200);\n"
@@ -706,7 +724,7 @@ class Ui_MainWindow(object):
         self.checkBox_3.setFont(font)
         self.checkBox_3.setObjectName("checkBox_3")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/设置.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("Icon/Set.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.tab_2, icon4, "")
         self.tab_3 = QtWidgets.QWidget()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -716,7 +734,7 @@ class Ui_MainWindow(object):
         self.tab_3.setSizePolicy(sizePolicy)
         self.tab_3.setObjectName("tab_3")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("C:/Users/.designer/backup/日志.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap("Icon/log2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.tab_3, icon5, "")
         self.verticalLayout_2.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -734,6 +752,13 @@ class Ui_MainWindow(object):
         self.DownloadType.setCurrentText(_translate("MainWindow", "URL"))
         self.DownloadType.setItemText(0, _translate("MainWindow", "URL"))
         self.DownloadType.setItemText(1, _translate("MainWindow", "BVid"))
+        url_icon = QtGui.QIcon()
+        url_icon.addPixmap(QtGui.QPixmap("Icon/URL.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        BV_icon = QtGui.QIcon()
+        BV_icon.addPixmap(QtGui.QPixmap("Icon/Bilibili2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.DownloadType.setItemIcon(0, url_icon)
+        self.DownloadType.setItemIcon(1, BV_icon)
+        self.DownloadType.setIconSize(QtCore.QSize(20, 20))
         self.URLlineEdit.setText(_translate("MainWindow", "https://dldir1.qq.com/music/clntupate/QQMusicSetup.exe"))
         self.label_5.setText(_translate("MainWindow", "保存位置："))
         self.chooseLocation.setText(_translate("MainWindow", "选择目录"))
@@ -760,4 +785,7 @@ class Ui_MainWindow(object):
         self.checkBox_3.setText(_translate("MainWindow", "限速下载"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "设置"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "日志"))
+        download_icon = QtGui.QIcon()
+        download_icon.addPixmap(QtGui.QPixmap("Icon/donwload2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.tabWidget.setTabIcon(self.tabWidget.indexOf(self.tab), download_icon)
 import image_rc

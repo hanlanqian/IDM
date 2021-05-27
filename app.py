@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from UI import Ui_MainWindow
 
 StopFlag = False
+saveDir = 'route.txt'
 
 
 class MyMain(QMainWindow):
@@ -21,19 +22,19 @@ class MyMain(QMainWindow):
         self.ui.pushButton.clicked.connect(self.setting)
         self.multidownload = MultiThreadDownload(self.show_download_info)
         self.multidownload.download_info_signal.connect(self.show_download_info)
-        if os.path.exists('route.txt'):
-            with open('route.txt') as f:
+        if os.path.exists(saveDir):
+            with open(saveDir) as f:
                 self.ui.lineEdit.setText(f.read())
         else:
-            with open('route.txt', 'x') as f:
+            with open(saveDir, 'x') as f:
                 pass
 
     def choose(self):
         if self.ui.checkBox.isChecked():
-            if not os.path.exists('route/route.txt'):
+            if not os.path.exists(saveDir):
                 QMessageBox.information(self, '警告', '您未曾选择过默认路径\n请前往设置界面设置路径\n或者取消选择默认路径下载')
             else:
-                with open('route/route.txt', 'r') as f:
+                with open(saveDir, 'r') as f:
                     dir_path = f.read()
                 self.ui.filepathEdit.setText(dir_path + '/')
         else:
@@ -63,7 +64,7 @@ class MyMain(QMainWindow):
         dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
         if dir_path:
             self.ui.lineEdit.setText(dir_path)
-            with open('route.txt', 'w') as f:
+            with open(saveDir, 'w') as f:
                 f.write(dir_path)
             QMessageBox.information(self, '提示', '默认保存位置已写入route文件')
 
