@@ -544,6 +544,7 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
+        self.label_7.setStyleSheet("color:red;")
         self.horizontalLayout_8.addWidget(self.label_7)
         self.verticalLayout.addLayout(self.horizontalLayout_8)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
@@ -817,7 +818,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
-        # self.horizontalSlider.sliderMoved['int'].connect(self.label_7.setNum)
         self.horizontalSlider.valueChanged.connect(self.valueChange)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

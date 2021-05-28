@@ -81,13 +81,12 @@ class MergeThread(Thread):
 class MultiThreadDownload(QThread):
     download_info_signal = pyqtSignal(dict)
 
-    # processbar_info_signal = pyqtSignal(dict)
-
     def __init__(self, show_download_info):
         super(MultiThreadDownload, self).__init__()
         self.show_download_info = show_download_info
         self.threads = []
-        self.Flag = True
+        self.VideoFlag = True
+        self.VideoMultiFlag = True
 
     def run(self):
         if g.globals_variable.Type == 'Bilibili':
@@ -95,45 +94,60 @@ class MultiThreadDownload(QThread):
                                             })
             site.url = 'https://www.bilibili.com/video/' + g.globals_variable.BVid
             site.prepare()
-            g.globals_variable.url = site.real_urls[0]
-            g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + '.' + \
-                                          g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
-            self.download_info_signal.emit({'info': '已获得真实视频链接，准备开始下载',
+            if len(site.real_urls) < 1:
+                self.download_info_signal.emit({
+                    'info': '你输入的BV号对应的视频有多个分P，暂不支持下载',
+                    'value': -1
+                })
+                self.VideoMultiFlag = False
+                self.VideoFlag = False
+                self.stop()
+                self.download_info_signal.emit({'info': "已停止下载"})
+            else:
+                g.globals_variable.url = site.real_urls[0]
+                g.globals_variable.filename = 'Bilibili视频' + g.globals_variable.BVid + '.' + \
+                                              g.globals_variable.url.split('?')[0].split('/')[-1].split('.')[-1]
+                self.download_info_signal.emit({'info': '已获得真实视频链接，准备开始下载',
+                                                })
+        if self.VideoMultiFlag:
+            self.download_info_signal.emit({'info': '开始解析连接',
                                             })
-        self.download_info_signal.emit({'info': '开始解析连接',
-                                        })
-        start_time = time.time()
-        head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
-        g.globals_variable.file_size = int(head_info.headers['Content-Length'])
-        with open(g.globals_variable.filepath + g.globals_variable.filename, 'wb') as f:
-            files.append(f)
+            start_time = time.time()
+            head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
+            g.globals_variable.file_size = int(head_info.headers['Content-Length'])
+            if g.globals_variable.Type == 'Bilibili' and g.globals_variable.file_size < 1024:
+                self.download_info_signal.emit({'info': '视频链接失效，即将退出下载！',
+                                                })
+                self.VideoFlag = False
+                self.stop()
+                self.download_info_signal.emit({'info': "已停止下载",
+                                                'value': 1.0,
+                                                })
+            if self.VideoFlag:
+                with open(g.globals_variable.filepath + g.globals_variable.filename, 'wb') as f:
+                    files.append(f)
+                    pass
+            sub_file_size = fileDivision(g.globals_variable.file_size, g.globals_variable.threads_num)
+            self.download_info_signal.emit(
+                {'info': '该文件大小为{}kb, 共用时{}s'.format(g.globals_variable.file_size / 1024, time.time() - start_time),
+                 })
+            for i in range(g.globals_variable.threads_num):
+                g.globals_variable.sub_file_download_percent.update({'线程' + str(i): 0})
+                thread = Download_Thread(i, sub_file_size[i], sub_file_size[i + 1])
+                thread.download_info_signal.connect(self.show_download_info)
+                thread.start()
+                self.threads.append(thread)
+            while isAlive(self.threads):
+                time.sleep(0.1)
+            for i in range(g.globals_variable.threads_num):
+                MergeThread(i).start()
+            total_time = time.time() - start_time
+            self.download_info_signal.emit(
+                {
+                    'info': f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s',
+                    })
+        else:
             pass
-        if g.globals_variable.Type == 'Bilibili' and g.globals_variable.file_size < 1024:
-            self.download_info_signal.emit({'info': '视频链接失效，即将退出下载！',
-                                            })
-            self.Flag = False
-            self.stop()
-            self.download_info_signal.emit({'info': "已停止下载",
-                                            'value': 1.0,
-                                            })
-        sub_file_size = fileDivision(g.globals_variable.file_size, g.globals_variable.threads_num)
-        self.download_info_signal.emit(
-            {'info': '该文件大小为{}kb, 共用时{}s'.format(g.globals_variable.file_size / 1024, time.time() - start_time),
-             })
-        for i in range(g.globals_variable.threads_num):
-            g.globals_variable.sub_file_download_percent.update({'线程' + str(i): 0})
-            thread = Download_Thread(i, sub_file_size[i], sub_file_size[i + 1])
-            thread.download_info_signal.connect(self.show_download_info)
-            thread.start()
-            self.threads.append(thread)
-        while isAlive(self.threads):
-            time.sleep(0.1)
-        for i in range(g.globals_variable.threads_num):
-            MergeThread(i).start()
-        total_time = time.time() - start_time
-        self.download_info_signal.emit(
-            {'info': f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s',
-             })
 
     def pause(self):
         for thread in self.threads:
@@ -146,8 +160,7 @@ class MultiThreadDownload(QThread):
             file.close()
         for thread in self.threads:
             thread.terminate()
-        os.remove(g.globals_variable.filepath + g.globals_variable.filename)
-        if self.Flag:
+        if self.VideoFlag:
             for i in range(g.globals_variable.threads_num):
                 os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
-        # self.terminate()
+        self.terminate()

@@ -17,6 +17,7 @@ class MyMain(QMainWindow):
         super(MyMain, self).__init__(parent)
         # self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setObjectName('MainWindow')
+        self.Success = False
         # self.setStyleSheet(ReadCss.readCss('./Mainwindow.css'))
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -44,24 +45,28 @@ class MyMain(QMainWindow):
                 self.ui.filepathEdit.setText(dir_path + '/')
         else:
             dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
-            self.ui.filepathEdit.setText(dir_path + '/')
+            if dir_path:
+                self.ui.filepathEdit.setText(dir_path + '/')
 
     def show_download_info(self, info):
         if 'info' in info.keys():
             self.ui.Download_info.appendPlainText(info['info'])
             if 'value' in info.keys():
                 if info['value'] < 0.0:
-                    QMessageBox.information(self, "出错啦", "解析链接失败")
+                    QMessageBox.information(self, "出错啦", "暂不支持多分p视频下载")
                 elif info['value'] > 0.0:
                     QMessageBox.information(self, "Bilibili error", "BV号解析失败")
         else:
             self.ui.Download_info.undo()
-            self.ui.MainprogressBar.setValue(int(info['downloaded'] / g.globals_variable.file_size * 100))
+            percent = int(info['downloaded'] / g.globals_variable.file_size * 100)
+            self.ui.MainprogressBar.setValue(percent)
+            if percent == 100 and self.Success:
+                self.Success = True
+                QMessageBox.information(self, "成功", "您的下载已经成功完成")
             download_info = ""
             for thread_id, process in info['sub_downloaded'].items():
                 if process > 100:
                     process = 100
-                    QMessageBox.information(self, "成功！", "您的下载已经完成")
                 download_info += 'INFO: {' + thread_id + '}' + str(round(process, 3)) + '%' + '\n'
             self.ui.Download_info.appendPlainText(download_info)
             self.ui.Download_info.moveCursor(QTextCursor.End)
