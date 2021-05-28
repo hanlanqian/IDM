@@ -1,0 +1,7 @@
+QPlainTextEdit{
+    font: 20px Consolas;
+    border: 3px solid gray;
+    color: red;
+    border-radius: 15px;
+    background: transparent;
+}

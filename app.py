@@ -2,8 +2,10 @@ import sys
 import os
 import globals_variable as g
 from Pyqt_IDM.threads import MultiThreadDownload
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor, QPaintEvent, QPixmap, QPainter, QLinearGradient, QColor, QBrush
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
+from PyQt5.QtCore import Qt, QPoint
+from ReadCSS import ReadCss
 from UI import Ui_MainWindow
 
 StopFlag = False
@@ -13,6 +15,9 @@ saveDir = 'route.txt'
 class MyMain(QMainWindow):
     def __init__(self, parent=None):
         super(MyMain, self).__init__(parent)
+        # self.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.setObjectName('MainWindow')
+        # self.setStyleSheet(ReadCss.readCss('./Mainwindow.css'))
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.chooseLocation.clicked.connect(self.choose)
