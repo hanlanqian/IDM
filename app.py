@@ -83,9 +83,13 @@ class MyMain(QMainWindow):
             QMessageBox.information(self, '错误', '您还没有启用日志功能')
 
     def showLog(self):
+        global logDir
         if self.ui.log_checkBox.isChecked():
-            with open(logDir, 'r') as f:
-                self.ui.log_plainEdit.setPlainText(f.read())
+            if os.path.exists(logDir):
+                with open(logDir, 'r') as f:
+                    self.ui.log_plainEdit.setPlainText(f.read())
+            else:
+                QMessageBox.information(self, '错误', '第一次使用暂无日志文件')
         else:
             QMessageBox.information(self, '错误', '您还没有启用日志功能')
 
