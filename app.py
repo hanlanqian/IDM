@@ -106,6 +106,7 @@ class MyMain(QMainWindow):
             QMessageBox.information(self, "错误", "你还没有开始下载！")
         else:
             self.multidownload.stop()
+            self.multidownload.terminate()
             self.ui.Download_info.appendPlainText('成功结束下载！')
 
 
