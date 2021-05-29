@@ -1,0 +1,7 @@
+QLineEdit{
+    border-style: outset;
+    border-width: 2px;
+    border-color: #ff0b00;
+    border-radius: 10px;
+    color: red;
+}

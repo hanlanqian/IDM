@@ -1,39 +1,63 @@
 import sys
 import os
+
+from PyQt5 import QtGui
+
 import globals_variable as g
 from Pyqt_IDM.threads import MultiThreadDownload
-from PyQt5.QtGui import QTextCursor, QPaintEvent, QPixmap, QPainter, QLinearGradient, QColor, QBrush
+from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtCore import Qt, QPoint
-from ReadCSS import ReadCss
 from UI import Ui_MainWindow
 
 StopFlag = False
 saveDir = 'route.txt'
+logDir = './log.txt'
+logDirPath = './logPath.txt'
 
 
 class MyMain(QMainWindow):
     def __init__(self, parent=None):
+        global logDir, logDirPath
         super(MyMain, self).__init__(parent)
-        # self.setAttribute(Qt.WA_TranslucentBackground, True)
         self.setObjectName('MainWindow')
         self.Success = False
-        # self.setStyleSheet(ReadCss.readCss('./Mainwindow.css'))
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.initPath()
+        self.ui.logPathEdit.setText(logDir)
         self.ui.chooseLocation.clicked.connect(self.choose)
         self.ui.startButton.clicked.connect(self.start_download)
         self.ui.pause_button.clicked.connect(self.pause_download)
         self.ui.stopButton.clicked.connect(self.stop_download)
         self.ui.pushButton.clicked.connect(self.setting)
+        self.ui.chooseBT.clicked.connect(self.logPath)
+        self.ui.log_button.clicked.connect(self.showLog)
         self.multidownload = MultiThreadDownload(self.show_download_info)
         self.multidownload.download_info_signal.connect(self.show_download_info)
+
+    def initPath(self):
+        global logDir, logDirPath
+        # 默认下载文件位置
         if os.path.exists(saveDir):
             with open(saveDir) as f:
                 self.ui.lineEdit.setText(f.read())
         else:
             with open(saveDir, 'x') as f:
                 pass
+        if os.path.exists(logDirPath):
+            with open(logDirPath) as f:
+                logDir = f.read()+'/log.txt'
+        else:
+            pass
+
+    # 重写主窗口关闭事件，实现对本次软件使用的日志导入
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        global logDir, logDirPath
+        if self.ui.log_checkBox.isChecked() and not self.ui.log_checkBox2.isChecked():
+            with open(logDir, 'a') as f:
+                f.write('此次运行日志为：\n')
+                f.write(self.ui.Download_info.toPlainText())
+                f.write('\n\n\n')
 
     def choose(self):
         if self.ui.checkBox.isChecked():
@@ -47,6 +71,23 @@ class MyMain(QMainWindow):
             dir_path = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
             if dir_path:
                 self.ui.filepathEdit.setText(dir_path + '/')
+
+    def logPath(self):
+        # 默认日志位置为./log.txt
+        if self.ui.log_checkBox.isChecked():
+            logDir = QFileDialog.getExistingDirectory(self, "请选择文件夹路径", "/:")
+            with open(logDirPath, 'w') as f:
+                f.write(logDir)
+            self.ui.logPathEdit.setText(logDir)
+        else:
+            QMessageBox.information(self, '错误', '您还没有启用日志功能')
+
+    def showLog(self):
+        if self.ui.log_checkBox.isChecked():
+            with open(logDir, 'r') as f:
+                self.ui.log_plainEdit.setPlainText(f.read())
+        else:
+            QMessageBox.information(self, '错误', '您还没有启用日志功能')
 
     def show_download_info(self, info):
         if 'info' in info.keys():

@@ -264,14 +264,8 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.URLlineEdit.sizePolicy().hasHeightForWidth())
         self.URLlineEdit.setSizePolicy(sizePolicy)
         self.URLlineEdit.setMinimumSize(QtCore.QSize(0, 0))
-        # self.URLlineEdit.setStyleSheet("QLineEdit{\n"
-        #                                "border:1px solid rgb(180, 180, 180);\n"
-        #                                "background: rgb(230,230,230);\n"
-        #                                "border-radius: 4px;}\n"
-        #                                "QLineEdit::hover{\n"
-        #                                "color:green\n"
-        #                                "border-color:rgb(50,480,40);\n"
-        #                                "  background-color:green;}\n")
+        self.URLlineEdit.setClearButtonEnabled(1)
+        self.URLlineEdit.setStyleSheet(ReadCss.readCss('./lineEdit.css'))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -358,15 +352,7 @@ class Ui_MainWindow(object):
         font.setPointSize(-1)
         self.chooseLocation.setFont(font)
         self.chooseLocation.setAutoFillBackground(False)
-        self.chooseLocation.setStyleSheet(
-            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-            "background:rgb(90, 191, 200);\n"
-            "\n"
-            "}\n"
-            "QPushButton:hover{\n"
-            "background:rgb(90, 171, 180)\n"
-            "}\n"
-            "")
+        self.chooseLocation.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Icon/Log.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.chooseLocation.setIcon(icon)
@@ -384,6 +370,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.filepathEdit.sizePolicy().hasHeightForWidth())
         self.filepathEdit.setSizePolicy(sizePolicy)
         self.filepathEdit.setMinimumSize(QtCore.QSize(0, 0))
+        self.filepathEdit.setStyleSheet(ReadCss.readCss('./lineEdit.css'))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -562,15 +549,7 @@ class Ui_MainWindow(object):
         font.setFamily("微软雅黑")
         font.setPointSize(-1)
         self.pause_button.setFont(font)
-        self.pause_button.setStyleSheet(
-            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-            "background:rgb(90, 191, 200);\n"
-            "\n"
-            "}\n"
-            "QPushButton:hover{\n"
-            "background:rgb(90, 171, 180)\n"
-            "}\n"
-            "")
+        self.pause_button.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("Icon/Pause_1.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pause_button.setIcon(icon1)
@@ -587,15 +566,7 @@ class Ui_MainWindow(object):
         font.setFamily("微软雅黑")
         font.setPointSize(-1)
         self.stopButton.setFont(font)
-        self.stopButton.setStyleSheet(
-            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-            "background:rgb(90, 191, 200);\n"
-            "\n"
-            "}\n"
-            "QPushButton:hover{\n"
-            "background:rgb(90, 171, 180)\n"
-            "}\n"
-            "")
+        self.stopButton.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("Icon/Cancel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stopButton.setIcon(icon2)
@@ -613,15 +584,7 @@ class Ui_MainWindow(object):
         font.setFamily("微软雅黑")
         font.setPointSize(-1)
         self.startButton.setFont(font)
-        self.startButton.setStyleSheet(
-            "QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-            "background:rgb(90, 191, 200);\n"
-            "\n"
-            "}\n"
-            "QPushButton:hover{\n"
-            "background:rgb(90, 171, 180)\n"
-            "}\n"
-            "")
+        self.startButton.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("Icon/Download.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.startButton.setIcon(icon3)
@@ -649,6 +612,7 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.lineEdit.setFont(font)
         self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit.setStyleSheet(ReadCss.readCss('./lineEdit.css'))
         self.pushButton = QtWidgets.QPushButton(self.tab_2)
         self.pushButton.setGeometry(QtCore.QRect(540, 70, 41, 31))
         font = QtGui.QFont()
@@ -656,14 +620,7 @@ class Ui_MainWindow(object):
         font.setPointSize(10)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.setStyleSheet("QPushButton{border:2px groove gray;border-radius:10px;padding:2px 4px;font-size:18px;font-family:微软雅黑;\n"
-            "background:rgb(90, 191, 200);\n"
-            "\n"
-            "}\n"
-            "QPushButton:hover{\n"
-            "background:rgb(90, 171, 180)\n"
-            "}\n"
-            "")
+        self.pushButton.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
         self.Limit_Speed = QtWidgets.QComboBox(self.tab_2)
         self.Limit_Speed.setGeometry(QtCore.QRect(160, 180, 121, 21))
         self.Limit_Speed.setStyleSheet("QComboBox {\n"
@@ -771,9 +728,44 @@ class Ui_MainWindow(object):
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap("Icon/log2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.tab_3, icon5, "")
+        self.log_checkBox = QtWidgets.QCheckBox(self.tab_3)
+        self.log_checkBox.setGeometry(QtCore.QRect(40, 30, 171, 21))
+        self.log_checkBox.setObjectName('log_checkBox')
+        self.log_checkBox.setText('启用日志功能')
+        self.log_checkBox.setFont(font)
+        self.log_checkBox.setStyleSheet('color:red;')
+        self.log_checkBox.setChecked(1)
+        self.log_plainEdit = QtWidgets.QPlainTextEdit(self.tab_3)
+        self.log_plainEdit.setGeometry(QtCore.QRect(20, 250, 1051, 471))
+        self.log_plainEdit.setStyleSheet(ReadCss.readCss('./plaintextEdit.css'))
+        self.log_plainEdit.setReadOnly(1)
+        self.log_button = QtWidgets.QPushButton(self.tab_3)
+        self.log_button.setGeometry(QtCore.QRect(40, 180, 151, 51))
+        self.log_button.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
+        self.log_button.setText('显示日志文件')
+        self.log_label = QtWidgets.QLabel(self.tab_3)
+        font = QtGui.QFont()
+        font.setFamily("宋体")
+        font.setPointSize(14)
+        self.log_label.setGeometry(QtCore.QRect(60, 70, 181, 31))
+        self.log_label.setFont(font)
+        self.log_label.setText('日志文件保存位置')
+        self.log_label.setStyleSheet('color:red;')
+        self.logPathEdit = QtWidgets.QLineEdit(self.tab_3)
+        self.logPathEdit.setGeometry(QtCore.QRect(220, 70, 331, 31))
+        self.logPathEdit.setFont(font)
+        self.logPathEdit.setStyleSheet(ReadCss.readCss('./lineEdit.css'))
+        self.chooseBT = QtWidgets.QPushButton(self.tab_3)
+        self.chooseBT.setGeometry(QtCore.QRect(550, 70, 41, 31))
+        self.chooseBT.setStyleSheet(ReadCss.readCss('./Qbutton.css'))
+        self.chooseBT.setText('...')
+        self.log_checkBox2 = QtWidgets.QCheckBox(self.tab_3)
+        self.log_checkBox2.setText("无痕模式(此次运行不保存日志)")
+        self.log_checkBox2.setGeometry(QtCore.QRect(40, 120, 331, 31))
+        self.log_checkBox2.setStyleSheet('color:red;')
+        self.log_checkBox2.setFont(font)
         self.verticalLayout_2.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         self.horizontalSlider.valueChanged.connect(self.valueChange)
@@ -831,9 +823,6 @@ class Ui_MainWindow(object):
         download_icon = QtGui.QIcon()
         download_icon.addPixmap(QtGui.QPixmap("Icon/donwload2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.tabWidget.setTabIcon(self.tabWidget.indexOf(self.tab), download_icon)
-        self.tab.setWindowOpacity(0.2)
-        self.tab_2.setWindowOpacity(0.2)
-        self.tab_3.setWindowOpacity(0.2)
 
     def valueChange(self):
         self.label_7.setNum(self.horizontalSlider.value())
