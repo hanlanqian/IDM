@@ -1,4 +1,13 @@
-
+# README
+## 简单的多线程IDM下载器，支持bilibili视频BV号下载
+## requirements
+* requests
+* Pyqt5
+* threading
+## Get Start
+* 运行`app.py`程序即可打开GUI界面
+* run `app.py` to get start with GUI.
+## 项目文件架构(framework)
 ```
 ├─IDM
     │  app.py
@@ -70,3 +79,4 @@
 
 
 ```
+
