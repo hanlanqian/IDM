@@ -786,7 +786,7 @@ class Ui_MainWindow(object):
         BV_icon.addPixmap(QtGui.QPixmap("Icon/Bilibili2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.DownloadType.setItemIcon(0, url_icon)
         self.DownloadType.setItemIcon(1, BV_icon)
-        self.DownloadType.setIconSize(QtCore.QSize(20, 20))
+        self.DownloadType.setIconSize(QtCore.QSize(23, 23))
         self.URLlineEdit.setText(_translate("MainWindow", "https://dldir1.qq.com/music/clntupate/QQMusicSetup.exe"))
         self.label_5.setText(_translate("MainWindow", "保存位置："))
         self.label_5.setStyleSheet("color:red;")

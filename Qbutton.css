@@ -7,5 +7,5 @@ QPushButton{
     background:rgb(90, 191, 200);
 }
 QPushButton:hover{
-    background: rgb(90, 171, 180);
+    background: #01a2ff;
 }
