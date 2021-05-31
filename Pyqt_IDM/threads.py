@@ -165,6 +165,3 @@ class MultiThreadDownload(QThread):
         if self.VideoFlag:
             for i in range(g.globals_variable.threads_num):
                 os.remove(g.globals_variable.filepath + g.globals_variable.filename + str(i) + '.tmp')
-
-    def generate_log(self):
-        pass
