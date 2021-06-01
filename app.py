@@ -2,7 +2,7 @@ import sys
 import os
 
 from PyQt5 import QtGui
-
+import re
 import globals_variable as g
 from Pyqt_IDM.threads import MultiThreadDownload
 from PyQt5.QtGui import QTextCursor
@@ -62,7 +62,7 @@ class MyMain(QMainWindow):
     def choose(self):
         if self.ui.checkBox.isChecked():
             if not os.path.exists(saveDir):
-                QMessageBox.information(self, '警告', '您未曾选择过默认路径\n请前往设置界面设置路径\n或者取消选择默认路径下载')
+                QMessageBox.warning(self, '警告', '您未曾选择过默认路径\n请前往设置界面设置路径\n或者取消选择默认路径下载')
             else:
                 with open(saveDir, 'r') as f:
                     dir_path = f.read()
@@ -80,7 +80,7 @@ class MyMain(QMainWindow):
                 f.write(logDir)
             self.ui.logPathEdit.setText(logDir)
         else:
-            QMessageBox.information(self, '错误', '您还没有启用日志功能')
+            QMessageBox.critical(self, '错误', '您还没有启用日志功能')
 
     def showLog(self):
         global logDir
@@ -89,18 +89,18 @@ class MyMain(QMainWindow):
                 with open(logDir, 'r') as f:
                     self.ui.log_plainEdit.setPlainText(f.read())
             else:
-                QMessageBox.information(self, '错误', '第一次使用暂无日志文件')
+                QMessageBox.critical(self, '错误', '第一次使用暂无日志文件')
         else:
-            QMessageBox.information(self, '错误', '您还没有启用日志功能')
+            QMessageBox.critical(self, '错误', '您还没有启用日志功能')
 
     def show_download_info(self, info):
         if 'info' in info.keys():
             self.ui.Download_info.appendPlainText(info['info'])
             if 'value' in info.keys():
                 if info['value'] < 0.0:
-                    QMessageBox.information(self, "出错啦", "暂不支持多分p视频下载")
+                    QMessageBox.critical(self, "出错啦", "暂不支持多分p视频下载")
                 elif info['value'] > 0.0:
-                    QMessageBox.information(self, "Bilibili error", "BV号解析失败")
+                    QMessageBox.critical(self, "Bilibili error", "BV号解析失败")
         else:
             self.ui.Download_info.undo()
             percent = int(info['downloaded'] / g.globals_variable.file_size * 100)
@@ -125,19 +125,29 @@ class MyMain(QMainWindow):
             QMessageBox.information(self, '提示', '默认保存位置已写入route文件')
 
     def start_download(self):
+        StartFlag = True
         g.globals_variable.__init__()
         self.ui.Download_info.setPlainText("")
         self.ui.MainprogressBar.setValue(0)
         g.globals_variable.filepath = self.ui.filepathEdit.text()
         if self.ui.DownloadType.currentText() == 'URL':
-            g.globals_variable.url = self.ui.URLlineEdit.text()
-            g.globals_variable.filename = g.globals_variable.url.split('?')[0].split('/')[-1]
-            g.globals_variable.Type = 'URL'
+            if not re.match(r'(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]', self.ui.URLlineEdit.text()):
+                QMessageBox.warning(self, '警告', '您输入的链接格式错误')
+                StartFlag = False
+            else:
+                g.globals_variable.url = self.ui.URLlineEdit.text()
+                g.globals_variable.filename = g.globals_variable.url.split('?')[0].split('/')[-1]
+                g.globals_variable.Type = 'URL'
         elif self.ui.DownloadType.currentText() == 'BVid':
-            g.globals_variable.BVid = self.ui.URLlineEdit.text()
-            g.globals_variable.Type = 'Bilibili'
-        g.globals_variable.threads_num = self.ui.horizontalSlider.value()
-        self.multidownload.start()
+            if not re.match(r'BV[A-Za-z0-9]{10}', self.ui.URLlineEdit.text()):
+                QMessageBox.warning(self, '警告', '您输入的BV号格式错误')
+                StartFlag = False
+            else:
+                g.globals_variable.BVid = self.ui.URLlineEdit.text()
+                g.globals_variable.Type = 'Bilibili'
+        if StartFlag:
+            g.globals_variable.threads_num = self.ui.horizontalSlider.value()
+            self.multidownload.start()
 
     def pause_download(self):
         self.multidownload.pause()
@@ -148,7 +158,7 @@ class MyMain(QMainWindow):
 
     def stop_download(self):
         if not self.multidownload.isRunning():
-            QMessageBox.information(self, "错误", "你还没有开始下载！")
+            QMessageBox.critical(self, "错误", "你还没有开始下载！")
         else:
             self.multidownload.stop()
             self.multidownload.terminate()
