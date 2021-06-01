@@ -1,7 +1,8 @@
 QPlainTextEdit{
     font: 20px Consolas;
     border: 3px solid gainsboro;
-    color: #ffeb9a;
+    /*color: #ffeb9a;*/
+    color: #ffe68a;
     border-radius: 15px;
     background: transparent;
 }

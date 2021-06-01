@@ -1,4 +1,5 @@
 QLineEdit{
+    font-family: Consolas;
     border-style: outset;
     border-width: 2px;
     border-color: #ff0b00;
