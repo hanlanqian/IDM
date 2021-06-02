@@ -136,6 +136,7 @@ class MyMain(QMainWindow):
                 StartFlag = False
             else:
                 g.globals_variable.url = self.ui.URLlineEdit.text()
+                self.ui.Download_info.appendPlainText(f'您所下载的链接为{g.globals_variable.url}')
                 g.globals_variable.filename = g.globals_variable.url.split('?')[0].split('/')[-1]
                 g.globals_variable.Type = 'URL'
         elif self.ui.DownloadType.currentText() == 'BVid':
@@ -144,6 +145,7 @@ class MyMain(QMainWindow):
                 StartFlag = False
             else:
                 g.globals_variable.BVid = self.ui.URLlineEdit.text()
+                self.ui.Download_info.appendPlainText(f'您所下载的视频BV号为{g.globals_variable.BVid}')
                 g.globals_variable.Type = 'Bilibili'
         if StartFlag:
             g.globals_variable.threads_num = self.ui.horizontalSlider.value()

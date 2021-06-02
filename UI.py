@@ -828,4 +828,5 @@ class Ui_MainWindow(object):
 
     def combobox(self):
         if self.DownloadType.currentIndex() == 1:
-            QtWidgets.QMessageBox.information(self.mainwindow, '免责声明', '免责免责免责免责免责')
+            with open('statement.txt', 'r', encoding='UTF-8') as f:
+                QtWidgets.QMessageBox.information(self.mainwindow, '声明', f.read())
