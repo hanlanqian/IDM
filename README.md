@@ -1,5 +1,5 @@
 # README
-## 简单的多线程IDM下载器，支持bilibili视频BV号下载(Pyqt5+requests+threading)
+## 简单的多线程IDM下载器，支持bilibili视频BV号下载(Pyqt5+requests+threading+you-get)
 ## requirements
 * requests
 * Pyqt5
