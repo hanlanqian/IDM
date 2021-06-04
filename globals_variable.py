@@ -1,10 +1,14 @@
 class GlobalsVariable:
     def __init__(self):
-        self.headers = {
+        self.BilibliHeaders = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
             'Referer': 'https://space.bilibili.com/4899781/',
             'Origin': 'http://www.bilibili.com',
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'Accept': '*/*',
+        }
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
             'Accept': '*/*',
         }
         self.sub_file_size = []

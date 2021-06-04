@@ -793,7 +793,7 @@ class Ui_MainWindow(object):
         self.filepathEdit.setText(_translate("MainWindow", "./"))
         self.label_2.setText(_translate("MainWindow", "线程数："))
         self.label_2.setStyleSheet("color:red;")
-        self.label_7.setText(_translate("MainWindow", "6"))
+        self.label_7.setText(_translate("MainWindow", "4"))
         self.label_3.setText(_translate("MainWindow", "下载进度："))
         self.label_3.setStyleSheet("color:red;")
         self.pause_button.setText(_translate("MainWindow", "暂停下载"))

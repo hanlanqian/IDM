@@ -89,7 +89,8 @@ class MultiThreadDownload(QThread):
         self.VideoMultiFlag = True
 
     def run(self):
-        if g.globals_variable.Type == 'Bilibili':
+        type = g.globals_variable.Type
+        if type == 'Bilibili':
             self.download_info_signal.emit({'info': '根据BV号下载视频：\n正在解析视频链接',
                                             })
             site.url = 'https://www.bilibili.com/video/' + g.globals_variable.BVid
@@ -113,9 +114,10 @@ class MultiThreadDownload(QThread):
             self.download_info_signal.emit({'info': '开始解析连接',
                                             })
             start_time = time.time()
-            head_info = session.head(g.globals_variable.url, headers=g.globals_variable.headers)
+            headers = g.globals_variable.headers if type == 'URL' else g.globals_variable.BilibliHeaders
+            head_info = session.head(g.globals_variable.url, headers=headers)
             g.globals_variable.file_size = int(head_info.headers['Content-Length'])
-            if g.globals_variable.Type == 'Bilibili' and g.globals_variable.file_size < 1024:
+            if type == 'Bilibili' and g.globals_variable.file_size < 1024:
                 self.download_info_signal.emit({'info': '视频链接失效，即将退出下载！',
                                                 })
                 self.VideoFlag = False
