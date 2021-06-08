@@ -36,11 +36,12 @@ class Download_Thread(QThread):
         self.thread_id = str(thread_id)
         self.start_bytes = start_bytes
         self.end_bytes = end_bytes - 1
-        self.headers = g.globals_variable.headers.copy()
+        self.headers = None
         self.PauseFlag = False
         self.StopFlag = False
 
     def run(self):
+        self.headers = g.globals_variable.headers.copy() if g.globals_variable.Type == 'URL' else g.globals_variable.BilibliHeaders.copy()
         start = time.time()
         self.headers.update({'Range': 'bytes={}-{}'.format(self.start_bytes, self.end_bytes)})
         self.download_info_signal.emit({'info': '线程{}开始解析'.format(self.thread_id)})
@@ -87,10 +88,11 @@ class MultiThreadDownload(QThread):
         self.threads = []
         self.VideoFlag = True
         self.VideoMultiFlag = True
+        self.DownloadType = None
 
     def run(self):
-        type = g.globals_variable.Type
-        if type == 'Bilibili':
+        self.DownloadType = g.globals_variable.Type
+        if self.DownloadType == 'Bilibili':
             self.download_info_signal.emit({'info': '根据BV号下载视频：\n正在解析视频链接',
                                             })
             site.url = 'https://www.bilibili.com/video/' + g.globals_variable.BVid
@@ -114,7 +116,7 @@ class MultiThreadDownload(QThread):
             self.download_info_signal.emit({'info': '开始解析连接',
                                             })
             start_time = time.time()
-            headers = g.globals_variable.headers if type == 'URL' else g.globals_variable.BilibliHeaders
+            headers = g.globals_variable.headers if self.DownloadType == 'URL' else g.globals_variable.BilibliHeaders
             head_info = session.head(g.globals_variable.url, headers=headers)
             g.globals_variable.file_size = int(head_info.headers['Content-Length'])
             if type == 'Bilibili' and g.globals_variable.file_size < 1024:
@@ -147,7 +149,7 @@ class MultiThreadDownload(QThread):
             self.download_info_signal.emit(
                 {
                     'info': f'一共耗时{total_time:.2f}s, 平均下载速度为{g.globals_variable.file_size / 1024 / 1024 / total_time:.4f}MB/s',
-                    })
+                })
         else:
             pass
 
